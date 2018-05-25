@@ -1,7 +1,7 @@
 # Group 2 Project
 
 ### App Title: 
-###Reach
+### Reach
 
 ### Description of Project: 
 Messaging service that allows personal users, small and mid-size businesses to text information to users based on their specifications.
