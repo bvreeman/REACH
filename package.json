@@ -22,7 +22,8 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "mysql": "^2.15.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "twilio": "^3.17.0"
   },
   "devDependencies": {
     "browser-sync": "^2.24.4",
