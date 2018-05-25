@@ -6,7 +6,7 @@
 ### Description of Project: 
 Messaging service that allows personal users, small and mid-size businesses to text information to users based on their specifications.
 
-### Link: <a href="https://github.com/bvreeman/group-2-project">Project Page</a>
+### Link: <a href="https://github.com/bvreeman/group-2-project/projects">Project Page</a>
 ### Link: <a href="https://app.xtensio.com/folio/s5ls38nj">Persona</a>
 
 ### Features:
