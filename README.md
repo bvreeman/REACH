@@ -1,9 +1,10 @@
 # Group 2 Project
 
-*App Title:* Reach
-Description of Project: Messaging service that allows personal users, small and mid-size businesses to text information to users based on their specifications.
+### App Title: Reach
+### Description of Project: 
+Messaging service that allows personal users, small and mid-size businesses to text information to users based on their specifications.
 
-*Features:*
+### Features:
 Each company/user can send emails to an individual or a group.
 Personalized database of contacts
 Add and delete users from database per company/individual
@@ -15,7 +16,7 @@ Stretch: Templates for users
     Personal reminder
     Custom template defined by customer
 
-*User Stories:*
+## User Stories:
 
 Manny's Manicotti Food Truck: Small business user who needs to be able to notify customers of weekly locations/events where his truck will be parked. Ability to send coupon codes to increase business during slow periods.
 
@@ -25,36 +26,36 @@ Small Business owner such as doctor, hairdresser, etc. to remind customers of sc
 
 *Tiered Stages:*
 
-Tier 1:
+## Tier 1:
 Send text message to self or others
 
-Fields:
+### Fields:
 * Phone # of sender
 * Phone # of recipient
 * Date to send message
 * Time to send message
 * Message
 
-Functionality:
-Add to database
-Schedule/Send message
-Delete message	
+### Functionality:
+* Add to database
+* Schedule/Send message
+* Delete message	
 
 
-Tier 2:
-Login process
-Registration for company or individual
+### Tier 2:
+* Login process
+* Registration for company or individual
 
 Fields:
-Business Name
-Address
-Phone number (company #)
-Twillio Number (stretch)
-Email address
+* Business Name
+* Address
+* Phone number (company #)
+* Twillio Number (stretch)
+* Email address
 
-Tier 3:
-Templates
-Groups
-Unsubscribe text messages
+### Tier 3:
+* Templates
+* Groups
+* Unsubscribe text messages
 
 
