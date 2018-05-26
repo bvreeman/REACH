@@ -64,8 +64,8 @@ Send text message to self or others
 * Unsubscribe text messages
 
 ## Wireframes
-<img src = "./img/wireframe1.png">
-<img src = "./img/wireframe2.png">
+<img src = "./public/assets/img/wireframe1.png">
+<img src = "./public/assets/img/wireframe2.png">
 
 
 
