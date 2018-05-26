@@ -39,5 +39,8 @@
     "gulp-autoprefixer": "^5.0.0",
     "gulp-html-beautify": "^1.0.1",
     "gulp-less": "^3.5.0"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
