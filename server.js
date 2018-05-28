@@ -38,6 +38,9 @@ app.get('/testTwilio', function(req, res){
     })
 })
 
+var routes = require("./controller/reachController.js");
+app.use(routes);
+
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
 });
