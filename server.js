@@ -1,6 +1,5 @@
 let express = require('express');
 let moment = require('moment')
-// add moment npm
 
 let app = express();
 const PORT = process.env.PORT || 8080;
@@ -12,6 +11,10 @@ const bodyParser = require('body-parser');
 
 require('nodemon');
 const exphbs = require('express-handlebars');
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 
 const trialSID = process.env.TWILIO_TRIAL_SID;
 const realSID = process.env.TWILIO_SID;
@@ -34,6 +37,9 @@ app.get('/testTwilio', function(req, res){
         } else console.log(data.body);
     })
 })
+
+var routes = require("./controller/reachController.js");
+app.use(routes);
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);

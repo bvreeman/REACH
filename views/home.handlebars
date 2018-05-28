@@ -1,0 +1,71 @@
+    <header>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#">Compose Message</a></li>
+            <li><a href="#">Pending Outbox</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <main>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="last_name" type="text" class="validate">
+                            <label for="last_name">US Phone Number (ex: 123456789)</label>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
+                            <label for="textarea1">Text Message Body</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input id="datePicker" type="text" class="validate">
+                            <label for="datePicker">Date</label>
+                        </div> 
+                        <div class="input-field col s12 m6">
+                            <input id="timePicker" type="text" class="validate timepicker-12-hr hasWickedpicker" onkeypress="return false;" aria-showingpicker="true" tabindex="-1">
+                            <label for="timePicker">Time</label>
+                        </div> 
+                    </div>
+                    <button class="btn waves-effect waves-light pink darken-1" type="submit" name="action">Save</button>
+                </form>
+            </div>
+        </main>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<!-- Materialize Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="../node_modules/wickedpicker/src/wickedpicker.js"></script>
+<script type="text/javascript">
+    $( function() {
+        $("#datePicker").datepicker();
+    } );
+
+    const options = {
+        now: "12:35", //hh:mm 24 hour format only, defaults to current time
+        twentyFour: false,  //Display 24 hour format, defaults to false
+        upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
+        downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
+        close: 'wickedpicker__close', //The close class selector to use, for custom CSS
+        hoverState: 'hover-state', //The hover state class to use, for custom CSS
+        title: 'Timepicker', //The Wickedpicker's title,
+        showSeconds: false, //Whether or not to show seconds,
+        secondsInterval: 1, //Change interval for seconds, defaults to 1,
+        minutesInterval: 1, //Change interval for minutes, defaults to 1
+        beforeShow: null, //A function to be called before the Wickedpicker is shown
+        show: null, //A function to be called when the Wickedpicker is shown
+        clearable: false, //Make the picker's input clearable (has clickable "x")
+    };
+    $('#timePicker').wickedpicker(options);
+</script>
+
+
+
+</html>
