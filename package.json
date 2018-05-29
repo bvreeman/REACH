@@ -27,7 +27,8 @@
     "nodemon": "^1.17.5",
     "path": "^0.12.7",
     "sequelize": "^4.37.10",
-    "twilio": "^3.17.1"
+    "twilio": "^3.17.1",
+    "wickedpicker": "^0.4.3"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.1.0",
