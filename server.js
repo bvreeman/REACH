@@ -19,7 +19,7 @@ const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-const routes = require('./controller/reachController.js');
+const routes = require('./routes/html-routes.js');
 
 app.use(routes);
 
