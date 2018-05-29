@@ -6,9 +6,8 @@
 // =============================================================
 
 // Requiring our Contact model
-var db = require("../models");
-var contacts = db.contacts;
-
+const db = require("../models");
+const contacts = db.contacts;
 
 const trialSID = process.env.TWILIO_TRIAL_SID;
 const realSID = process.env.TWILIO_SID;
@@ -18,6 +17,8 @@ const trialNumber = process.env.TWILIO_TRIAL_PHONE_NUMBER;
 const realNumber = process.env.TWILIO_PHONE_NUMBER;
 
 const client = require('twilio')(trialSID, trialToken);
+
+console.log(contacts);
 
 // Routes
 // =============================================================
@@ -36,7 +37,6 @@ module.exports = function(app) {
     })
     });
 
-    // console.log(db.contacts);
 
 //   app.get("/getNumber", function(req, res) {
 //     contacts.findAll({}).then(function(results) {
