@@ -48,15 +48,15 @@ module.exports = function(app) {
 
   // POST route for saving a new contact
   app.post('/api/getNumber', function(req, res) {
-    console.log(req.body);
+    console.log(`POST: ${req.body}`);
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
     contacts.create({
       contact_name: req.body.contact_name,
       phone_number: req.body.phone_number,
-      email_address: req.body.email,
       outgoing_message: req.body.outgoing_message,
+      // email_address: req.body.email_address,
     }).then(function(dbContacts) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbContacts);
