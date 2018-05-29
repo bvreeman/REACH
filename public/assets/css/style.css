@@ -11,3 +11,14 @@
 .timepicker-close {
   color: #6a1b9a;
 }
+.timepicker-canvas line {
+  stroke: #6a1b9a;
+}
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+  fill: #6a1b9a;
+}
+.timepicker-tick.active,
+.timepicker-tick:hover {
+  background-color: #4a148c;
+}
