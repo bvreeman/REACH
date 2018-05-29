@@ -1,30 +1,25 @@
 {
   "name": "group-2-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+  "description": "### App Title:  ### Reach",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "tests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bvreeman/group-2-project.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bvreeman/group-2-project/issues"
-  },
-  "homepage": "https://github.com/bvreeman/group-2-project#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "browser-sync": "^2.24.4",
     "config": "^1.30.0",
     "cron": "^1.3.0",
     "dotenv": "^5.0.1",
+    "eslint": "^4.19.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
-    "fs": "0.0.1-security",
+    "fs": "^0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-less": "^3.5.0",
     "moment": "^2.22.1",
     "moment-timezone": "^0.5.17",
     "mysql": "^2.15.0",
@@ -35,13 +30,21 @@
     "twilio": "^3.17.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.24.4",
-    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-html-beautify": "^1.0.1",
-    "gulp-less": "^3.5.0"
-  }
+    "eslint-plugin-import": "^2.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bvreeman/group-2-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bvreeman/group-2-project/issues"
+  },
+  "homepage": "https://github.com/bvreeman/group-2-project#readme"
 }

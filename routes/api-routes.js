@@ -6,7 +6,12 @@
 // =============================================================
 
 // Requiring our Contact model
-const db = require("../models");
+const db = require('../models');
+
+// console.log('\n<------------------------------>\n');
+// console.log(db.contacts);
+// console.log('\n<------------------------------>\n');
+
 const contacts = db.contacts;
 
 const trialSID = process.env.TWILIO_TRIAL_SID;
@@ -23,19 +28,18 @@ console.log(contacts);
 // Routes
 // =============================================================
 module.exports = function(app) {
-
   // GET route for getting all of the todos
-  app.get("/testTwilio", function(req, res) {
+  app.get('/testTwilio', function(req, res) {
     client.messages.create({
-        from: trialNumber,
-        to: '+15072591109',
-        body: 'This is a test', 
-    }, function(err, data){
-        if(err) {
-            console.log(err);
-        } else console.log(data.body);
-    })
+      from: trialNumber,
+      to: '+15072591109',
+      body: 'This is a test',
+    }, function(err, data) {
+      if (err) {
+        console.log(err);
+      } else console.log(data.body);
     });
+  });
 
 
 //   app.get("/getNumber", function(req, res) {

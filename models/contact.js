@@ -1,7 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
-    var Contact = sequelize.define("contacts", {
-      text: DataTypes.STRING,
-      complete: DataTypes.BOOLEAN
-    });
-    return Contact;
-  };
+  const Contact = sequelize.define('contacts', {
+    contact_name: DataTypes.STRING,
+    phone_number: DataTypes.STRING,
+    email: DataTypes.STRING,
+
+  });
+  return Contact;
+};
