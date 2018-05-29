@@ -36,7 +36,7 @@ module.exports = function(app) {
     })
     });
 
-    console.log(db.contacts);
+    // console.log(db.contacts);
 
 //   app.get("/getNumber", function(req, res) {
 //     contacts.findAll({}).then(function(results) {
