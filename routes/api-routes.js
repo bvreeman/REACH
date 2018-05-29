@@ -23,8 +23,6 @@ const realNumber = process.env.TWILIO_PHONE_NUMBER;
 
 const client = require('twilio')(trialSID, trialToken);
 
-console.log(contacts);
-
 // Routes
 // =============================================================
 module.exports = function(app) {
@@ -42,26 +40,28 @@ module.exports = function(app) {
   });
 
 
-//   app.get("/getNumber", function(req, res) {
-//     contacts.findAll({}).then(function(results) {
-//         return res.json(results);
-//         });
-//   })
+  app.get('/api/getNumber', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      return res.json(dbContacts);
+    });
+  });
 
-//   // POST route for saving a new todo
-//   app.post("/api/todos", function(req, res) {
-//     console.log(req.body);
-//     // create takes an argument of an object describing the item we want to
-//     // insert into our table. In this case we just we pass in an object with a text
-//     // and complete property (req.body)
-//     db.Todo.create({
-//       text: req.body.text,
-//       complete: req.body.complete
-//     }).then(function(dbTodo) {
-//       // We have access to the new todo as an argument inside of the callback function
-//       res.json(dbTodo);
-//     });
-//   });
+  // POST route for saving a new contact
+  app.post('/api/getNumber', function(req, res) {
+    console.log(req.body);
+    // create takes an argument of an object describing the item we want to
+    // insert into our table. In this case we just we pass in an object with a text
+    // and complete property (req.body)
+    contacts.create({
+      contact_name: req.body.contact_name,
+      phone_number: req.body.phone_number,
+      email_address: req.body.email,
+      outgoing_message: req.body.outgoing_message,
+    }).then(function(dbContacts) {
+      // We have access to the new todo as an argument inside of the callback function
+      res.json(dbContacts);
+    });
+  });
 
 //   // DELETE route for deleting todos. We can get the id of the todo we want to delete from
 //   // req.params.id
