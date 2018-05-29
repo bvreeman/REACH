@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Contact = sequelize.define("Contact", {
+    var Contact = sequelize.define("contacts", {
       text: DataTypes.STRING,
       complete: DataTypes.BOOLEAN
     });
