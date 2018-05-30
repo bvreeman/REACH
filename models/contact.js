@@ -11,10 +11,11 @@ module.exports = function(sequelize, DataTypes) {
       unique: false,
       allowNull: false,
     },
-    // email_address: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
+    email_address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
     outgoing_message: {
       type: DataTypes.STRING,
       allowNull: false,
