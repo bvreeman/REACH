@@ -1,8 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
   const Contact = sequelize.define('contacts', {
+    contact_name: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: true,
+    },
     phone_number: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
     },
     // email_address: {
