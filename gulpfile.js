@@ -27,7 +27,7 @@ gulp.task('less', function () {
       browsers: ['last 2 versions'],
       cascade: false,
     }))
-    .pipe(gulp.dest('./styles'));
+    .pipe(gulp.dest('./public/assets/css'));
 });
 
 gulp.task('htmlbeautify', function() {
