@@ -3,33 +3,30 @@ module.exports = function(sequelize, DataTypes) {
     contact_name: {
       type: DataTypes.STRING,
       unique: false,
-      allowNull: false,
+      allowNull: true,
     },
     phone_number: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
     },
-    email_address: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+    // email_address: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // },
     outgoing_message: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // scheduled_date: {
-    //   // "2016-01-01 00:00:00+00:00"
-    //   type: DataTypes.DATEONLY,
-    //   allowNull: false,
-    //   timestamps: false,
-    // },
+    scheduled_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     // scheduled_time: {
-    //   // "2016-01-01 00:00:00+00:00"
-    //   type: DataTypes.TIME,
-    //   allowNull: false,
-    //   timestamps: false,
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
     // },
+    // date_to_send: DataTypes.DATE,
   }, {
     timestamps: false,
   });

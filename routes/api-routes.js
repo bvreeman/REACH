@@ -60,11 +60,11 @@ module.exports = function(app) {
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
     contacts.create({
-      contact_name: req.body.contact_name,
+      // contact_name: req.body.contact_name,
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
-      email_address: req.body.email_address,
-      // scheduled_date: req.body.scheduled_date,
+      // email_address: req.body.email_address,
+      scheduled_date: req.body.scheduled_date,
       // scheduled_time: req.body.scheduled_time,
     }).then(function(dbContacts) {
       // We have access to the new todo as an argument inside of the callback function
