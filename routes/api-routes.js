@@ -58,8 +58,8 @@ module.exports = function(app) {
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
       // email_address: req.body.email_address,
-      scheduled_date: req.body.scheduled_date,
-      scheduled_time: req.body.scheduled_time,
+      // scheduled_date: req.body.scheduled_date,
+      // scheduled_time: req.body.scheduled_time,
     }).then(function(dbContacts) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbContacts);
