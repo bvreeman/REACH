@@ -48,7 +48,7 @@ module.exports = function(app) {
 
   // POST route for saving a new contact
   app.post('/api/getNumber', function(req, res) {
-    console.log(`POST: ${req.body}`);
+    // console.log(`POST: ${req.body}`);
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)

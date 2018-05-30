@@ -19,10 +19,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     scheduled_date: {
+      // YYYY-MM-DD HH:MM:SS
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Scheduled_time: {
+    scheduled_time: {
+      // YYYY-MM-DD HH:MM:SS
       type: DataTypes.DATE,
       allowNull: false,
     },
