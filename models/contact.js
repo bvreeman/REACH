@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: false,
       allowNull: true,
+      defaultValue: '',
     },
     phone_number: {
       type: DataTypes.STRING,
@@ -18,11 +19,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    scheduled_date: {
-      // YYYY-MM-DD HH:MM:SS
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
+    // scheduled_date: {
+    //   // YYYY-MM-DD HH:MM:SS
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
+    // },
     // scheduled_time: {
     //   type: DataTypes.DATE,
     //   allowNull: true,
