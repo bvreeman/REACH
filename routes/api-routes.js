@@ -8,8 +8,11 @@
 // Requiring our Contact model
 const db = require('../models');
 
-const contacts = db.contacts;
+// console.log('\n<------------------------------>\n');
+// console.log(db.contacts);
+// console.log('\n<------------------------------>\n');
 
+const contacts = db.contacts;
 
 const trialSID = process.env.TWILIO_TRIAL_SID;
 const realSID = process.env.TWILIO_SID;
@@ -36,28 +39,31 @@ module.exports = function(app) {
     });
   });
 
-  // console.log(db.contacts);
 
-//   app.get("/getNumber", function(req, res) {
-//     contacts.findAll({}).then(function(results) {
-//         return res.json(results);
-//         });
-//   })
+  app.get('/api/getNumber', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      return res.json(dbContacts);
+    });
+  });
 
-//   // POST route for saving a new todo
-//   app.post("/api/todos", function(req, res) {
-//     console.log(req.body);
-//     // create takes an argument of an object describing the item we want to
-//     // insert into our table. In this case we just we pass in an object with a text
-//     // and complete property (req.body)
-//     db.Todo.create({
-//       text: req.body.text,
-//       complete: req.body.complete
-//     }).then(function(dbTodo) {
-//       // We have access to the new todo as an argument inside of the callback function
-//       res.json(dbTodo);
-//     });
-//   });
+  // POST route for saving a new contact
+  app.post('/api/getNumber', function(req, res) {
+    console.log(`POST: ${req.body}`);
+    // create takes an argument of an object describing the item we want to
+    // insert into our table. In this case we just we pass in an object with a text
+    // and complete property (req.body)
+    contacts.create({
+      contact_name: req.body.contact_name,
+      phone_number: req.body.phone_number,
+      outgoing_message: req.body.outgoing_message,
+      email_address: req.body.email_address,
+      scheduled_date: req.body.scheduled_date,
+      scheduled_time: req.body.scheduled_time,
+    }).then(function(dbContacts) {
+      // We have access to the new todo as an argument inside of the callback function
+      res.json(dbContacts);
+    });
+  });
 
 //   // DELETE route for deleting todos. We can get the id of the todo we want to delete from
 //   // req.params.id
