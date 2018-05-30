@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   const Contact = sequelize.define('contacts', {
     contact_name: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
     },
     phone_number: {
@@ -18,17 +18,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    scheduled_date: {
-      // YYYY-MM-DD HH:MM:SS
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    scheduled_time: {
-      // YYYY-MM-DD HH:MM:SS
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    // date_to_send: DataTypes.DATE,
+    // scheduled_date: {
+    //   // "2016-01-01 00:00:00+00:00"
+    //   type: DataTypes.DATEONLY,
+    //   allowNull: false,
+    //   timestamps: false,
+    // },
+    // scheduled_time: {
+    //   // "2016-01-01 00:00:00+00:00"
+    //   type: DataTypes.TIME,
+    //   allowNull: false,
+    //   timestamps: false,
+    // },
   }, {
     timestamps: false,
   });

@@ -28,6 +28,13 @@ const client = require('twilio')(trialSID, trialToken);
 module.exports = function(app) {
   // GET route for getting all of the todos
   app.get('/testTwilio', function(req, res) {
+    console.log('\n <-----------------------> \n');
+    console.log(`REQ: ${req}`);
+    console.log('\n <-----------------------> \n');
+
+    console.log(`RES: ${res}`);
+    console.log('\n <-----------------------> \n');
+
     client.messages.create({
       from: trialNumber,
       to: '+15072591109',
@@ -57,8 +64,8 @@ module.exports = function(app) {
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
       email_address: req.body.email_address,
-      scheduled_date: req.body.scheduled_date,
-      scheduled_time: req.body.scheduled_time,
+      // scheduled_date: req.body.scheduled_date,
+      // scheduled_time: req.body.scheduled_time,
     }).then(function(dbContacts) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbContacts);
