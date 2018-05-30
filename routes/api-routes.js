@@ -60,7 +60,7 @@ module.exports = function(app) {
       // scheduled_date: req.body.scheduled_date,
       // scheduled_time: req.body.scheduled_time,
     }).then(function(dbContacts) {
-      // We have access to the new todo as an argument inside of the callback function
+      // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
     });
   });
