@@ -5,14 +5,14 @@
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">US Phone Number (ex: 123456789)</label>
+                            <input id="phone" type="tel" class="validate">
+                            <label for="phone">US Phone Number (ex: 123456789)</label>
                         </div> 
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
-                            <label for="textarea1">Text Message Body</label>
+                            <textarea id="message" class="materialize-textarea" data-length="255"></textarea>
+                            <label for="text">Text Message Body</label>
                         </div>
                     </div>
                     <div class="row">
@@ -26,7 +26,7 @@
                             <label for="timePicker">Time</label>
                         </div> 
                     </div>
-                    <button class="btn waves-effect waves-light pink darken-1" type="submit" name="action">Save</button>
+                    <button class="btn waves-effect waves-light pink darken-1" id = "submit" type="submit" name="action">Save</button>
                 </form>
             </div>
         </main>
@@ -36,12 +36,16 @@
 {{!-- jquery CDN --}}
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 {{!-- Materialize Compiled and minified JavaScript --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="/assets/js/view.js" type= "text/javascript"></script>
 <script type="text/javascript">
     $( function() {
         $("#datePicker").datepicker();
         $('.sidenav').sidenav();
         $('#timePicker').timepicker();
+
     } );
+
 
 </script>
