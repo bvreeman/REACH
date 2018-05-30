@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Scheduled_time: {
+    scheduled_time: {
       type: DataTypes.DATE,
       allowNull: false,
     },
