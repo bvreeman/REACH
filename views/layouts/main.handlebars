@@ -5,13 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link rel="stylesheet" href="../node_modules/wickedpicker/stylesheets/wickedpicker.css">
-		{{!-- <link rel="stylesheet" href="/assets/css/style.css" type="text/css" /> --}}
-		<title>Reach</title>
-		<script src="https://code.jquery.com/jquery.js"></script>
-    	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {{!-- <link rel="stylesheet" href="../node_modules/wickedpicker/stylesheets/wickedpicker.css"> --}}
-</head>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {{!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
+		<title>Reach</title>
+    </head>
+    <header>
        <nav>
             <div class="nav-wrapper purple darken-3">
                 <div class="container">
@@ -25,9 +24,15 @@
                     </ul>
                 </div>
             </div>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="#">Compose Message</a></li>
+                <li><a href="#">Pending Outbox</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
         </nav>
-	</head>
-	<body>
+	</header>
+
 		{{{ body }}}
-	</body>
+
 </html>

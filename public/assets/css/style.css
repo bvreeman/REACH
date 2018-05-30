@@ -1,3 +1,24 @@
-body {
-    background-color: tomato;
+.datepicker-date-display,
+.timepicker-digital-display,
+.datepicker-table td.is-selected {
+  background-color: #6a1b9a;
+}
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done,
+.datepicker-table td.is-today,
+.timepicker-close {
+  color: #6a1b9a;
+}
+.timepicker-canvas line {
+  stroke: #6a1b9a;
+}
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+  fill: #6a1b9a;
+}
+.timepicker-tick.active,
+.timepicker-tick:hover {
+  background-color: #4a148c;
 }
