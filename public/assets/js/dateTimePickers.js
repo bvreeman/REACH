@@ -49,7 +49,7 @@ $( document ).ready(function() {
                     selectedYear: selectedDate.getFullYear()
                 }
                 console.log(`this is the Date: ${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`);
-                $("#datePicker").val(moment(`${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`).format("MMM DD, YYYY"));
+                $("#datePicker").val(moment(`${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`, ['YYYY-MM-DD']).format("MMM DD, YYYY"));
                 console.log("New Value:" + $("#datePicker").val());
                 datePickInstance.close();
             }
@@ -58,8 +58,7 @@ $( document ).ready(function() {
         // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
         const datePickInstance = datePickInstances[0];
 
-        // This makes sure we launch the datepicker modal when using tab to navigate the page
-        // This allows for the modal to launch immediately when tab focus onto the date input field
+        // This makes sure we automatically launch the datepicker modal when using tab to navigate the page
         $("#datePicker").focus(function() {
             datePickInstance.open();
             console.log("focusing on the date field");

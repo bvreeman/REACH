@@ -2,31 +2,36 @@
     <div class="container">
         <main>
             <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="phone" type="tel" class="validate">
-                            <label for="phone">US Phone Number (ex: 123456789)</label>
-                        </div> 
+                <div class="col s12">
+                    <div class="card-panel">
+                        <h5 class="center-align">Compose Message</h5>
+                        <form>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="phone" type="tel" class="validate">
+                                    <label for="phone">US Phone Number (ex: 123456789)</label>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="message" class="materialize-textarea" data-length="255"></textarea>
+                                    <label for="text">Text Message Body</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <input id="datePicker" placeholder="" type="text" class="datepicker validate">
+                                    <label for="datePicker">Date</label>
+                                </div> 
+                                <div class="input-field col s12 m6">
+                                    <input id="timePicker" placeholder="" type="text" class="validate">
+                                    <label for="timePicker">Time</label>
+                                </div> 
+                            </div>
+                            <button class="btn waves-effect waves-light pink darken-1" id="submit" type="submit" name="action">Save</button>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="message" class="materialize-textarea" data-length="255"></textarea>
-                            <label for="text">Text Message Body</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input id="datePicker" placeholder="" type="text" class="datepicker validate">
-                            <label for="datePicker">Date</label>
-                        </div> 
-                        <div class="input-field col s12 m6">
-                            <input id="timePicker" placeholder="" type="text" class="validate">
-                            <label for="timePicker">Time</label>
-                        </div> 
-                    </div>
-                    <button class="btn waves-effect waves-light pink darken-1" id="submit" type="submit" name="action">Save</button>
-                </form>
+                </div>
             </div>
         </main>
     </div>
