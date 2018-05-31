@@ -7,8 +7,8 @@ $(document).ready(function() {
     const newMessage = $('#message').val().trim();
     const newDate = $('#datePicker').val().trim();
     const formattedDate = moment(newDate).format('YYYY-MM-DD');
-    const newTime = $('#timePicker').val().trim();
-    const formattedTime = moment(newTime).format('hh:mm A');
+    const newTime = $('#timePicker').val();
+    const formattedTime = moment(newTime, ['h:mm A']).format('HH:mm');
 
     console.log(formattedDate);
     console.log(formattedPhone);
