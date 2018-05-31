@@ -8,7 +8,7 @@ $(document).ready(function() {
     const newDate = $('#datePicker').val().trim();
     const formattedDate = moment({ newDate }).format('YYYY-MM-DD');
     const newTime = $('#timePicker').val().trim();
-    const formattedTime = moment({ newTime }).format('HH:MM:SS');
+    const formattedTime = moment({ newTime }).format('HH:MM');
 
     console.log(formattedDate);
     console.log(formattedPhone);
