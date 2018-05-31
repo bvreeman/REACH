@@ -16,7 +16,6 @@ require('./routes/api-routes.js')(app);
 
 const mysql = require('mysql');
 
-
 require('nodemon');
 const exphbs = require('express-handlebars');
 
