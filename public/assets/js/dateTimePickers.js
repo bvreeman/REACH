@@ -49,7 +49,7 @@ $(document).ready(function() {
       };
       console.log(`this is the Date: ${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`);
       $('#datePicker').val(moment(`${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`).format('MMM DD, YYYY'));
-      console.log(`New Value:${  $('#datePicker').val()}`);
+      console.log(`New Value:${$('#datePicker').val()}`);
       datePickInstance.close();
     },
   });
