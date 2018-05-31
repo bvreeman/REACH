@@ -57,19 +57,19 @@ module.exports = function(app) {
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
       email_address: req.body.email_address,
-      // scheduled_date: req.body.scheduled_date,
-      // scheduled_time: req.body.scheduled_time,
+      scheduled_date: req.body.scheduled_date,
+      scheduled_time: req.body.scheduled_time,
     }).then(function(dbContacts) {
       // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
     });
   });
 
-//   // DELETE route for deleting todos. We can get the id of the todo we want to delete from
-//   // req.params.id
-//   app.delete("/api/todos/:id", function(req, res) {
+  // // DELETE route for deleting todos. We can get the id of the todo we want to delete from
+  // // req.params.id
+  // app.delete("/api/todos/:id", function(req, res) {
 
-//   });
+  // });
 
 //   // PUT route for updating todos. We can get the updated todo from req.body
 //   app.put("/api/todos", function(req, res) {
