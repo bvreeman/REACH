@@ -1,14 +1,14 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 
-var sequelize = new Sequelize("contacts_db", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
+const sequelize = new Sequelize('contacts_db', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
   pool: {
     max: 5,
     min: 0,
-    idle: 10000
-  }
+    idle: 10000,
+  },
 });
 
 
