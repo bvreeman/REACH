@@ -1,13 +1,13 @@
 $( document ).ready(function() {
  
-$('#submit').on("click", function (event){
+$("#submit").on("click", function (event){
     event.preventDefault();
 
     var newPhone = $('#phone').val().trim();
     var formattedPhone = ('+1' +newPhone)
     var newMessage = $('#message').val().trim();
     var newDate = $('#datePicker').val().trim();
-    var formattedDate = moment({newDate}).format("YYYY-MM-DD");
+    var formattedDate = moment(newDate).format("YYYY-MM-DD");
     // var newTime = $('#timePicker').val().trim();
     // var formattedTime = moment({newTime}).format("HH:MM:ss a");
     
