@@ -29,7 +29,7 @@
 
   });
 
-$("#delete").on("click", function(event){
+$("body").on("click", ".delete", function(event){
   const id= $(this).data("id");
     console.log('it works!');
   $.ajax("/outbox/" +id, {
@@ -40,4 +40,4 @@ $("#delete").on("click", function(event){
       location.reload();
     }
   )
-})
+});

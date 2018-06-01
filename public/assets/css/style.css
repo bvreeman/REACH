@@ -25,3 +25,9 @@ body {
 .timepicker-tick:hover {
   background-color: #4a148c;
 }
+textarea.materialize-textarea {
+  height: 4rem;
+}
+#submit:focus {
+  background-color: #4a148c !important;
+}
