@@ -26,6 +26,20 @@ $(document).ready(function() {
     }).then(function(toTheServer) {
       console.log(toTheServer);
     });
+
+    $(".delete").on("click", function(event){
+      var id= $(this).data("id");
+
+      $.ajax("/outbox/" +id, {
+        type: "DELETE",
+      }).then(
+        function() {
+          console.log("deleted message" +id)
+          location.reload();
+        }
+      )
+    })
+
   });
 });
 
