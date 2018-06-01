@@ -1,3 +1,6 @@
+body {
+  background-color: #f5f5f6;
+}
 .datepicker-date-display,
 .timepicker-digital-display,
 .datepicker-table td.is-selected {
