@@ -1,4 +1,3 @@
-$(document).ready(function() {
   $('#submit').on('click', function (event) {
     event.preventDefault();
 
@@ -26,6 +25,19 @@ $(document).ready(function() {
     }).then(function(toTheServer) {
       console.log(toTheServer);
     });
-  });
-});
 
+
+  });
+
+$("#delete").on("click", function(event){
+  const id= $(this).data("id");
+    console.log('it works!');
+  $.ajax("/outbox/" +id, {
+    type: "DELETE",
+  }).then(
+    function() {
+      console.log("deleted message" +id)
+      location.reload();
+    }
+  )
+})
