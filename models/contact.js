@@ -20,15 +20,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    scheduled_date: {
-      // YYYY-MM-DD HH:MM:SS
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    scheduled_time: {
+    scheduled_send: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // scheduled_date: {
+    //   // YYYY-MM-DD HH:MM:SS
+    //   type: DataTypes.DATEONLY,
+    //   allowNull: false,
+    // },
+    // scheduled_time: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
   }, {
     timestamps: false,
   });

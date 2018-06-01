@@ -39,6 +39,7 @@ module.exports = function(app) {
   });
   let phoneNumber;
   let outgoingMessage;
+
   app.get('/testTwilio/:id', function(req, res) {
     contacts.findOne({
       where: {
@@ -81,8 +82,9 @@ module.exports = function(app) {
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
       email_address: req.body.email_address,
-      scheduled_date: req.body.scheduled_date,
-      scheduled_time: req.body.scheduled_time,
+      // scheduled_date: req.body.scheduled_date,
+      // scheduled_time: req.body.scheduled_time,
+      scheduled_send: req.body.scheduled_send,
     }).then(function(dbContacts) {
       // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
