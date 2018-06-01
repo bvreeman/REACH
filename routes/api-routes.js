@@ -27,18 +27,42 @@ const client = require('twilio')(trialSID, trialToken);
 // =============================================================
 module.exports = function(app) {
   // GET route for getting all of the todos
-  app.get('/testTwilio', function(req, res) {
-    client.messages.create({
-      from: trialNumber,
-      to: '+15072591109',
-      body: 'This is a test',
-    }, function(err, data) {
-      if (err) {
-        console.log(err);
-      } else console.log(data.body);
+
+  app.get('/api/getNumber/:id', function(req, res) {
+    contacts.findOne({
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      res.json(dbContacts);
     });
   });
+  let phoneNumber;
+  let outgoingMessage;
+  app.get('/testTwilio/:id', function(req, res) {
+    contacts.findOne({
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      // console.log('\n<---------------------->\n');
+      // console.log(dbContacts.dataValues.phone_number);
+      // console.log('\n<---------------------->\n');
 
+      phoneNumber = dbContacts.dataValues.phone_number;
+      outgoingMessage = dbContacts.dataValues.outgoing_message;
+
+      client.messages.create({
+        from: trialNumber,
+        to: phoneNumber,
+        body: outgoingMessage,
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+        } else console.log(data.body);
+      });
+    });
+  });
 
   app.get('/api/getNumber', function(req, res) {
     contacts.findAll({}).then(function(dbContacts) {
