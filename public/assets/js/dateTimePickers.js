@@ -18,16 +18,6 @@ $(document).ready(function() {
     // Initializing formatting and options for timePicker modals
     const timePickInstances = M.Timepicker.init(timePickElems, {
         autoClose: true
-        // onSelect: function(hour, minute) {
-        //     const formattedSelectedTime = {
-        //         selectedHour: hour,
-        //         selectedMinute: minute,
-        //     };
-        //     console.log(`this is the Date: ${formattedSelectedDate.selectedYear}-${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`);
-        //     $('#datePicker').val(moment(`${formattedSelectedTime.selectedHour}:${formattedSelectedDate.selectedMonth}-${formattedSelectedDate.selectedDay}`, ['YYYY-MM-DD']).format('MMM DD, YYYY'));
-        //     console.log(`New Value:${$('#datePicker').val()}`);
-        //     datePickInstance.close();
-        // },
     });
 
     // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
@@ -74,9 +64,9 @@ $(document).ready(function() {
         datePickInstance.open();
         console.log("focusing on the date field");
     });
-    $('#datePicker').change( function() {
-        timePickInstance.open();
-        $('#submit').focus();
-    });
+    // $('#datePicker').change( function() {
+    //     timePickInstance.open();
+    //     $('#submit').focus();
+    // });
 
 } );
