@@ -1,3 +1,10 @@
+/**
+ * Created by Kupletsky Sergey on 05.11.14.
+ *
+ * Material Design Responsive Table https://codepen.io/zavoloklom/pen/IGkDz
+ * Tested on Win8.1 with browsers: Chrome 37, Firefox 32, Opera 25, IE 11, Safari 5.1.7
+ * You can use this table in Bootstrap (v3) projects. Material Design Responsive Table CSS-style will override basic bootstrap style.
+ */
 /* -- import Roboto Font ---------------------------- */
 @import "//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css";
 @font-face {

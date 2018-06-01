@@ -92,10 +92,16 @@ module.exports = function(app) {
   });
 
   // // DELETE route for deleting todos. We can get the id of the todo we want to delete from
-  // // req.params.id
-  // app.delete("/api/todos/:id", function(req, res) {
 
-  // });
+  app.delete("/outbox/:id", function(req,res) {
+    contacts.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbContacts){
+      res.json(dbContacts)
+    })
+  });
 
 //   // PUT route for updating todos. We can get the updated todo from req.body
 //   app.put("/api/todos", function(req, res) {

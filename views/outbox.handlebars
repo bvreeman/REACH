@@ -12,6 +12,7 @@
                                 <th>Message Body</th>
                                 <th>Contacts</th>
                                 <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,7 +22,8 @@
                                 <td>{{scheduled_date}}</td>
                                 <td>{{outgoing_message}}</td>
                                 <td>{{phone_number}}</td>
-                                <td><a href="#">Edit</a></td>
+                                <td><button class = "edit" data-id="{{this.id}}">Edit</button></td>
+                                <td><button class = "delete" data-id="{{this.id}}">Delete</button></td>
                             </tr>
                             {{/each}}
                         </tbody>
