@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../models');
+
 const contacts = db.contacts;
 
 // These lines of code for linking the CSS files for html rendering
@@ -18,12 +19,11 @@ router.get('/', function(req, res) {
   res.render('home');
 });
 
-router.get("/outbox", function(req, res) {
+router.get('/outbox', function(req, res) {
   contacts.findAll({}).then(function(dbContacts) {
-    return res.render("outbox",{dbContacts: dbContacts});;
-
+    return res.render('outbox', { dbContacts: dbContacts });
   });
-});  
+});
 
 // Export routes for server.js to use.
 module.exports = router;
