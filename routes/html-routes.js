@@ -26,7 +26,7 @@ router.get("/outbox", function(req, res) {
 });  
 
 router.get("/edit/:id", function(req, res) {
-  contacts.findById(req.params.id).then(function(dbContacts) {
+  contacts.findAll({where: {id:req.params.id}}).then(function(dbContacts) {
     return res.render("edit",{dbContacts: dbContacts});;
 
   });
