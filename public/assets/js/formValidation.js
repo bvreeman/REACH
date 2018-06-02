@@ -1,4 +1,7 @@
+// Function validates fields in compose message form
 function validateForm() {
+
+    // Phone number validation. Determines if multiple numbers provided and if they are US 10-digit numbers
     let phoneNumbers;
     let areMultipleNumbers = false;
     let phoneNumber = $('#phone').val().replace(/-|\s/g,"");
@@ -27,4 +30,5 @@ function validateForm() {
             return true;
         }
     }
+    // End of phone number validation
 }
