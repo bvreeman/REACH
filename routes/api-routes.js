@@ -103,8 +103,7 @@ module.exports = function(app) {
     })
   });
 
-//   // PUT route for updating todos. We can get the updated todo from req.body
-//   app.put("/api/todos", function(req, res) {
+  // PUT route for updating todos. We can get the updated todo from req.body
 
 app.put("/edit/:id", function (req,res) {
   contacts.udpate({
@@ -112,12 +111,15 @@ app.put("/edit/:id", function (req,res) {
     phone_number: req.body.phone_number,
     outgoing_message: req.body.outgoing_message,
     email_address: req.body.email_address,
-    scheduled_send: req.body.scheduled_send,
+    scheduled_send: req.body.scheduled_send
   }, {
-    where: {req.body.id
+    where: {
+      id: req.params.id
   }
-}
   }).then(function(dbContacts) {
+    res.json(dbContacts)
   });
 
-};
+});
+
+}
