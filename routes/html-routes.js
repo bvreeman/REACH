@@ -25,5 +25,12 @@ router.get("/outbox", function(req, res) {
   });
 });  
 
+router.get("/edit/:id", function(req, res) {
+  contacts.findById(req.params.id).then(function(dbContacts) {
+    return res.render("edit",{dbContacts: dbContacts});;
+
+  });
+});  
+
 // Export routes for server.js to use.
 module.exports = router;
