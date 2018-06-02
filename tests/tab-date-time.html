@@ -41,6 +41,7 @@
                             <h5 class="center-align">Compose Message</h5>
                             <form>
                                 <div class="row">
+                                    <div id="phoneError" style="color: red"></div>
                                     <div class="input-field col s12">
                                         <input id="phone" type="tel" class="validate">
                                         <label for="phone">US Phone Number (ex: 123456789)</label>
@@ -58,7 +59,7 @@
                                         <h6>Schedule Outgoing Date:</h6>
                                     </div>
                                     <div class="col s6 m3">
-                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="datePicker"><i class="fas fa-calendar-alt"></i> Select Date</button>            
+                                        <!-- <button class="btn waves-effect waves-light pink darken-1 formBtn" id="datePicker"><i class="fas fa-calendar-alt"></i> Select Date</button>             -->
                                     </div>
                                 </div>
 
@@ -114,40 +115,40 @@
                                         <h6>Schedule Outgoing Time:</h6>
                                     </div>
                                     <div class="col s6 m3">
-                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="timePicker"><i class="far fa-clock"></i> Select Time</button>
+                                        <!-- <button class="btn waves-effect waves-light pink darken-1 formBtn" id="timePicker"><i class="far fa-clock"></i> Select Time</button> -->
                                     </div>
                                 </div>
                                 
                                 <div class="row">
-                                    <div id="selectedHour" class="col s4 m3">
+                                    <div class="col s4 m3">
                                         <label>Hour</label>
                                         <!-- <select> -->
-                                        <select class="browser-default">
+                                        <select id="selectedHour" class="browser-default">
                                             <option disabled value="" id="defaultHour" selected></option>
-                                            <option value="1">1</option>
+                                            <!-- <option value="1">1</option>
                                             <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option value="3">3</option> -->
                                         </select>
                                         <!-- <label>Hour</label> -->
                                     </div>
-                                    <div id="selectedMinute" class="col s4 m3">
+                                    <div class="col s4 m3">
                                         <label>Minute</label>
                                         <!-- <select> -->
-                                        <select class="browser-default">
+                                        <select id="selectedMinute" class="browser-default">
                                             <option disabled value="" id="defaultMinute" selected></option>
-                                            <option value="1">1</option>
+                                            <!-- <option value="1">1</option>
                                             <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option value="3">3</option> -->
                                         </select>
                                         <!-- <label>Minute</label> -->
                                     </div>
-                                    <div id="selectedAMPM" class="col s4 m3">
+                                    <div class="col s4 m3">
                                         <label>AM/PM</label>
                                         <!-- <select> -->
-                                        <select class="browser-default">
+                                        <select id="selectedAMPM" class="browser-default">
                                             <option disabled value="" id="defaultAMPM" selected></option>
-                                            <option value="1">AM</option>
-                                            <option value="2">PM</option>
+                                            <!-- <option value="1">AM</option>
+                                            <option value="2">PM</option> -->
                                         </select>
                                     </div>
                                     <!-- <div class="col s12 m1">
@@ -186,17 +187,26 @@
             const currentMonth = moment().format('MM');
             const currentYear = moment().format('YYYY');
             const currentDay = moment().format('DD');
+            let currentHour = moment().format('hh');
+            let currentMinute = moment().format('mm');
+            let currentAMPM = moment().format('A');
             const currentDate = {
                 year : currentYear,
                 month : currentMonth,
                 day: currentDay
             };
+            const currentTime = {
+                hour: currentHour,
+                minute: currentMinute,
+                ampm: currentAMPM
+            };
 
-            // Arrays for tracking months with 30 days and years that are leap years
+            // Arrays for tracking months with 30 days
             const thirtyDayMonths = ['04', '06', '09', '11'];
-            const leapYears = ['2020', '2024', '2028'];
 
-
+            let minuteVal = currentTime.minute;
+            let hourVal = currentTime.hour;
+            let ampmVal = currentTime.ampm;
             let dayVal = currentDate.day;
             let monthVal = currentDate.month;
             let yearVal = currentDate.year;
@@ -206,9 +216,13 @@
             loadDays(30,true);
             loadMonths(true);
             loadYears();
+            loadHours(true);
+            loadMinutes(true);
+            loadAMPM(true);
             firstLoad = false;
         }
         // END OF firstFormLoading() Function
+
 
         // Populates the days in the day dropdown menu
         function loadDays(daysInMonth, booleanCurrentMonth) {
@@ -217,8 +231,8 @@
                 dayVal = $('#selectedDay').val();
                 monthVal = $('#selectedMonth').val();
                 $('#selectedDay').empty();
-                let dayOptionFormated = $('<option disabled value="" id="defaultYear" selected>');
-                $('#selectedDay').append(dayOptionFormated);
+                let dayFirstOptionFormated = $('<option disabled value="" id="defaultYear" selected>');
+                $('#selectedDay').append(dayFirstOptionFormated);
             }
 
             // Determines if days list should start at day number 1 depending on the current date
@@ -251,8 +265,8 @@
                 dayVal = $('#selectedDay').val();
                 monthVal = $('#selectedMonth').val();
                 $('#selectedMonth').empty();
-                let monthOptionFormated = $('<option disabled value="" id="defaultMonth" selected>');
-                $('#selectedMonth').append(monthOptionFormated);
+                let monthFirstOptionFormated = $('<option disabled value="" id="defaultMonth" selected>');
+                $('#selectedMonth').append(monthFirstOptionFormated);
             }
             
             // Determines if months list should start at month number 1 depending on the current date
@@ -317,11 +331,92 @@
                 }       
         };
 
+        function loadHours(booleanCurrentDay) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedHour').empty();
+                let hourFirstOptionFormated = $('<option disabled value="" id="defaultHour" selected>');
+                $('#selectedHour').append(hourFirstOptionFormated);
+            }
+            let startHour = 1;
+            if (booleanCurrentDay) {
+                startHour = parseInt(currentTime.hour);
+            }
+            for (let i=startHour; i<13; i++) {
+                let hourOption = $('<option>');
+                if (i < 10) {
+                    hourOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    hourOption.val(i).text(i);
+                }
+                $('#selectedHour').append(hourOption);
+                // console.log("Logged " + i);
+            };
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        function loadMinutes(booleanCurrentDayAndHour) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedMinute').empty();
+                let minuteFirstOptionFormated = $('<option disabled value="" id="defaultMinute" selected>');
+                $('#selectedMinute').append(minuteFirstOptionFormated);
+            }
+            let startMinute = 1;
+            if (booleanCurrentDayAndHour) {
+                startMinute = parseInt(currentTime.minute);
+            }
+            for (let i=startMinute; i<60; i++) {
+                let minuteOption = $('<option>');
+                if (i < 10) {
+                    minuteOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    minuteOption.val(i).text(i);
+                }
+                $('#selectedMinute').append(minuteOption);
+                // console.log("Logged " + i);
+            };
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        function loadAMPM(booleanCurrentDayAndAM) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedAMPM').empty();
+                let ampmFirstOptionFormated = $('<option disabled value="" id="defaultAMPM" selected>');
+                $('#selectedAMPM').append(ampmFirstOptionFormated);
+            }
+            let ampmOption = $('<option>');
+            if (booleanCurrentDayAndAM) {
+                ampmOption.val('AM').text('AM');
+                $('#selectedAMPM').append(ampmOption);
+            }                 
+            ampmOption.val('PM').text('PM');
+            $('#selectedAMPM').append(ampmOption);
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        // Makes sure the selected option in each drop down menu remains consistent after each reload
+        function updateDomTimeSelection(hour, minute, ampm) {
+            $('#selectedMinute option:contains(' + minute + ')').prop({selected: true});
+            $('#selectedHour option:contains(' + hour + ')').prop({selected: true});
+            $('#selectedAMPM option:contains(' + ampm + ')').prop({selected: true});
+        };
+
+
 
 
         $(document).ready(function() {
             firstFormLoading();
-            
             // Change day options depending on the month and if it's a leap year
             $('#selectedMonth').change(function() {
                 // dayVal = $('#selectedDay').val();
@@ -336,6 +431,8 @@
                 // $('#selectedDay option:contains(' + dayVal + ')').prop({selected: true});
                 // $('#selectedMonth option:contains(' + monthVal + ')').prop({selected: true});
             });
+
+
 
 
             $('#selectedYear').change(function() {
@@ -364,7 +461,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     
     <!-- <script src="/assets/js/dateTimePickers.js" type= "text/javascript"></script> -->
-    <script src="../public/assets/js/view.js" type= "text/javascript"></script>    
+    <!-- <script src="../public/assets/js/view.js" type= "text/javascript"></script>     -->
     <script>
         $(document).ready(function() {
             // Setup side navbar to launch in mobile view
@@ -460,7 +557,7 @@
                 const datePickInstances = M.Datepicker.init(datePickElems, {
                     format: 'mmm dd, yyyy',
                     minDate: new Date(moment().format('YYYY,M,D')),
-                    yearRange: [2018, 2028],
+                    yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
                     // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
                     onSelect: function(time) {
                         let pickerSelectedDate = new Date(time);
@@ -503,5 +600,37 @@
 
 
             } );
+
+            function validateForm() {
+                let phoneNumbers;
+                let areMultipleNumbers = false;
+                let phoneNumber = $('#phone').val().replace(/-|\s/g,"");
+
+                $('#phoneError').empty();
+
+                if (phoneNumber.includes(",")) {
+                    phoneNumbers = phoneNumber.split(",");
+                    areMultipleNumbers = true;
+                }
+                if (areMultipleNumbers) {
+                    phoneNumbers.map(elem => {
+                        if (elem.parseInt() === "NaN" || elem.parseInt().String().length != 10) {
+                            $('#phoneError').text("Please provide a valide 10-digit US phone number.");
+                            console.log("Please provide a valide 10-digit US phone number.");
+                            return false;
+                        };
+                    });
+                    return true;
+                } else {
+                    if (phoneNumber.parseInt() === "NaN" || phoneNumber.parseInt().String().length != 10) {
+                        return false;
+                        $('#phoneError').text("Please provide a valide 10-digit US phone number.");
+                        console.log("Please provide a valide 10-digit US phone number.");
+                    } else {
+                        return true;
+                    }
+                }
+            }
+            
     </script>
 </html>

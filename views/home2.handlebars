@@ -1,0 +1,108 @@
+<body>
+        <div class="container">
+            <main>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel">
+                            <h5 class="center-align">Compose Message</h5>
+                            <form>
+                                <div class="row">
+                                    <div id="phoneError" style="color: red"></div>
+                                    <div class="input-field col s12">
+                                        <input id="phone" type="tel" class="validate">
+                                        <label for="phone">US Phone Number (ex: 123456789)</label>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="message" class="materialize-textarea" data-length="255"></textarea>
+                                        <label for="text">Text Message Body</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s6 m9">
+                                        <h6>Schedule Outgoing Date:</h6>
+                                    </div>
+                                    <div class="col s6 m3">
+                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="datePicker"><i class="fas fa-calendar-alt"></i> Select Date</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s4 m3">
+                                        <label>Year</label>
+                                        <select id="selectedYear" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultYear" selected>YYYY</option>
+                                            {{!-- jQuery year options append here --}}
+                                        </select>
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Month</label>
+                                        <select id="selectedMonth" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultMonth" selected>MM</option>
+                                                {{!-- jQuery month options append here --}}
+                                        </select>
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Day</label>
+                                        <select id="selectedDay" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultDay" selected>DD</option>
+                                                {{!-- jQuery day options append here --}}
+                                        </select>
+                                    </div>
+                                </div>  
+
+                                <div class="row">
+                                    <div class="col s6 m9">
+                                        <h6>Schedule Outgoing Time:</h6>
+                                    </div>
+                                    <div class="col s6 m3">
+                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="timePicker"><i class="far fa-clock"></i> Select Time</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col s4 m3">
+                                        <label>Hour</label>
+                                        <select id="selectedHour" class="browser-default">
+                                            <option disabled value="" id="defaultHour" selected></option>
+                                                {{!-- jQuery hour options append here --}}
+                                        </select>
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Minute</label>
+                                        <select id="selectedMinute" class="browser-default">
+                                            <option disabled value="" id="defaultMinute" selected></option>
+                                                {{!-- jQuery minute options append here --}}
+                                        </select>
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>AM/PM</label>
+                                        <select id="selectedAMPM" class="browser-default">
+                                            <option disabled value="" id="defaultAMPM" selected></option>
+                                                {{!-- jQuery AM/PM options append here --}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m3">
+                                        <button class="right-align btn-large waves-effect waves-light pink darken-1" id="submit" type="submit" name="action">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- Moment JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+    <!-- Materialize Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="/assets/js/dateTimePickers2.js"></script>
+    <script src="/assets/js/formValidation.js"></script>
+</html>
