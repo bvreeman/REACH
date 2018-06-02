@@ -57,3 +57,9 @@ $("body").on("click", ".delete", function(event){
     }
   )
 });
+
+$("body").on("click", ".edit", function(event){
+  event.preventDefault();
+  const id= $(this).data("id");
+  window.location.href = "/edit/"+id
+});
