@@ -37,8 +37,8 @@ function firstFormLoading() {
     loadDays(30,true);
     loadMonths(true);
     loadYears();
-    loadHours(true);
-    loadMinutes(true);
+    loadHours(false);
+    loadMinutes(false);
     loadAMPM(true);
     firstLoad = false;
 }
