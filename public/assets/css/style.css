@@ -31,3 +31,7 @@ textarea.materialize-textarea {
 #submit:focus {
   background-color: #4a148c !important;
 }
+
+.formBtn:focus {
+  background-color: #4a148c !important;
+}
