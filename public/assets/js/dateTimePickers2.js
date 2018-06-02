@@ -229,13 +229,14 @@ function loadAMPM(booleanCurrentDayAndAM) {
         let ampmFirstOptionFormated = $('<option disabled value="" id="defaultAMPM" selected>');
         $('#selectedAMPM').append(ampmFirstOptionFormated);
     }
-    let ampmOption = $('<option>');
+    let ampmOption1 = $('<option>');
+    let ampmOption2 = $('<option>');
     if (booleanCurrentDayAndAM) {
-        ampmOption.val('AM').text('AM');
-        $('#selectedAMPM').append(ampmOption);
+        ampmOption1.val('AM').text('AM');
+        $('#selectedAMPM').append(ampmOption1);
     }                 
-    ampmOption.val('PM').text('PM');
-    $('#selectedAMPM').append(ampmOption);
+    ampmOption2.val('PM').text('PM');
+    $('#selectedAMPM').append(ampmOption2);
     updateDomTimeSelection(hourVal, minuteVal, ampmVal);
 };
 // END OF loadAMPM() FUNCTION
