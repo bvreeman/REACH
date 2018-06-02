@@ -1,13 +1,24 @@
+
   $('#submit').on('click', function (event) {
     event.preventDefault();
 
     const newPhone = $('#phone').val().trim();
     const formattedPhone = (`+1${newPhone}`);
     const newMessage = $('#message').val().trim();
-    const newDate = $('#datePicker').val().trim();
-    const formattedDate = moment(newDate, ['MMM DD, YYYY']).format('YYYY-MM-DD');
-    const newTime = $('#timePicker').val();
-    const formattedTime = moment(newTime, ['h:mm A']).format('HH:mm');
+
+    // For home.handlebars:
+    // const newDate = $('#datePicker').val().trim();
+    // const formattedDate = moment(newDate, ['MMM DD, YYYY']).format('YYYY-MM-DD');
+    // const newTime = $('#timePicker').val();
+    // const formattedTime = moment(newTime, ['h:mm A']).format('HH:mm');
+
+    // For home2.handlebars:
+    const newDate = `${$('#selectedMonth').val()} ${$('#selectedDay').val()}, ${$('#selectedYear').val()}`;
+    const formattedDate = moment(newDate, ['MM DD, YYYY']).format('YYYY-MM-DD');
+    const newTime = `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`;
+    const formattedTime = moment(newTime, ['hh:mm A']).format('HH:mm');
+
+    
     const dateTime = `${formattedDate} ${formattedTime}`;
     const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
     // console.log(formattedDate);

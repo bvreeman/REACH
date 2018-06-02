@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+		<title>Reach</title>
+    </head>
+    <header>
+       <nav>
+            <div class="nav-wrapper purple darken-3">
+                <div class="container">
+                    <a href="/" class="brand-logo">REACH</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+                    <ul class="right hide-on-med-and-down">
+                    <li><a href="/">Compose Message</a></li>
+                    <li><a href="/outbox">Pending Outbox</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="/">Compose Message</a></li>
+                <li><a href="/outbox">Pending Outbox</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+	</header>
+
+    <body>
+        <div class="container">
+            <main>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel">
+                            <h5 class="center-align">Compose Message</h5>
+                            <form>
+                                <div class="row">
+                                    <div id="phoneError" style="color: red"></div>
+                                    <div class="input-field col s12">
+                                        <input id="phone" type="tel" class="validate">
+                                        <label for="phone">US Phone Number (ex: 123456789)</label>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="message" class="materialize-textarea" data-length="255"></textarea>
+                                        <label for="text">Text Message Body</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s6 m9">
+                                        <h6>Schedule Outgoing Date:</h6>
+                                    </div>
+                                    <div class="col s6 m3">
+                                        <!-- <button class="btn waves-effect waves-light pink darken-1 formBtn" id="datePicker"><i class="fas fa-calendar-alt"></i> Select Date</button>             -->
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s4 m3">
+                                        <label>Year</label>
+                                        <!-- <select> -->
+                                        <select id="selectedYear" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultYear" selected>YYYY</option>
+                                            <!-- <option value="1">AM</option>
+                                            <option value="2">PM</option> -->
+                                        </select>
+                                        <!-- <label>Year</label> -->
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Month</label>
+                                        <!-- <select> -->
+                                        <select id="selectedMonth" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultMonth" selected>MM</option>
+                                            <!-- <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option> -->
+                                        </select>
+                                        <!-- <label>Month</label> -->
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Day</label>
+                                        <!-- <select> -->
+                                        <select id="selectedDay" class="browser-default dateInputs">
+                                            <option disabled value="" id="defaultDay" selected>DD</option>
+                                            <!-- <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option> -->
+                                        </select>
+                                        <!-- <label>Day</label> -->
+                                    </div>
+                                    <!-- <div class="col s12 m1">
+                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="datePicker"><i class="far fa-clock"></i></button>
+                                    </div> -->
+                                </div>  
+
+                                <div class="row">
+                                    <div class="col s6 m9">
+                                        <h6>Schedule Outgoing Time:</h6>
+                                    </div>
+                                    <div class="col s6 m3">
+                                        <!-- <button class="btn waves-effect waves-light pink darken-1 formBtn" id="timePicker"><i class="far fa-clock"></i> Select Time</button> -->
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col s4 m3">
+                                        <label>Hour</label>
+                                        <!-- <select> -->
+                                        <select id="selectedHour" class="browser-default">
+                                            <option disabled value="" id="defaultHour" selected></option>
+                                            <!-- <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option> -->
+                                        </select>
+                                        <!-- <label>Hour</label> -->
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>Minute</label>
+                                        <!-- <select> -->
+                                        <select id="selectedMinute" class="browser-default">
+                                            <option disabled value="" id="defaultMinute" selected></option>
+                                            <!-- <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option> -->
+                                        </select>
+                                        <!-- <label>Minute</label> -->
+                                    </div>
+                                    <div class="col s4 m3">
+                                        <label>AM/PM</label>
+                                        <!-- <select> -->
+                                        <select id="selectedAMPM" class="browser-default">
+                                            <option disabled value="" id="defaultAMPM" selected></option>
+                                            <!-- <option value="1">AM</option>
+                                            <option value="2">PM</option> -->
+                                        </select>
+                                    </div>
+                                    <!-- <div class="col s12 m1">
+                                        <button class="btn waves-effect waves-light pink darken-1 formBtn" id="timePicker"><i class="fas fa-calendar-alt"></i></button>
+                                    </div> -->
+                                     <!-- <div class="input-field col s12 m6">
+                                        <input id="datePicker" placeholder="" type="text" class="datepicker validate">
+                                        <label for="datePicker">Date</label>
+                                    </div> 
+                                    <div class="input-field col s12 m6">
+                                        <input id="timePicker" placeholder="" type="text" class="validate">
+                                        <label for="timePicker">Time</label>
+                                    </div>  -->
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col s0 m9"></div> -->
+                                    <div class="col s12 m3">
+                                        <button class="right-align btn-large waves-effect waves-light pink darken-1" id="submit" type="submit" name="action">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- Moment JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+    <script>
+
+        // Global Variables
+            // Setup values for current date
+            const currentMonth = moment().format('MM');
+            const currentYear = moment().format('YYYY');
+            const currentDay = moment().format('DD');
+            let currentHour = moment().format('hh');
+            let currentMinute = moment().format('mm');
+            let currentAMPM = moment().format('A');
+            const currentDate = {
+                year : currentYear,
+                month : currentMonth,
+                day: currentDay
+            };
+            const currentTime = {
+                hour: currentHour,
+                minute: currentMinute,
+                ampm: currentAMPM
+            };
+
+            // Arrays for tracking months with 30 days
+            const thirtyDayMonths = ['04', '06', '09', '11'];
+
+            let minuteVal = currentTime.minute;
+            let hourVal = currentTime.hour;
+            let ampmVal = currentTime.ampm;
+            let dayVal = currentDate.day;
+            let monthVal = currentDate.month;
+            let yearVal = currentDate.year;
+            let firstLoad = true;
+
+        function firstFormLoading() {
+            loadDays(30,true);
+            loadMonths(true);
+            loadYears();
+            loadHours(true);
+            loadMinutes(true);
+            loadAMPM(true);
+            firstLoad = false;
+        }
+        // END OF firstFormLoading() Function
+
+
+        // Populates the days in the day dropdown menu
+        function loadDays(daysInMonth, booleanCurrentMonth) {
+            // Clear days list if not the first page load
+            if (!firstLoad) {
+                dayVal = $('#selectedDay').val();
+                monthVal = $('#selectedMonth').val();
+                $('#selectedDay').empty();
+                let dayFirstOptionFormated = $('<option disabled value="" id="defaultYear" selected>');
+                $('#selectedDay').append(dayFirstOptionFormated);
+            }
+
+            // Determines if days list should start at day number 1 depending on the current date
+            let startDay = 1;
+            if (booleanCurrentMonth) {
+                startDay = parseInt(currentDate.day); 
+            }
+
+            // Loops through days and appends them to the days dropdown list in the DOM
+            for (let i=startDay; i<daysInMonth+1; i++) {
+                let dayOption = $('<option>');
+                if (i < 10) {
+                    dayOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    dayOption.val(i).text(i);
+                }
+                $('#selectedDay').append(dayOption);
+            }
+
+            // Make sure the selected option in each drop down menu remains consistent after each reload
+            $('#selectedDay option:contains(' + dayVal + ')').prop({selected: true});
+            $('#selectedMonth option:contains(' + monthVal + ')').prop({selected: true});
+        }
+        // END OF loadDays() FUNCTION
+
+        // Populates the Months in the month dropdown menu
+        function loadMonths(booleanCurrentYear) {
+            // Clear months list if not the first page load
+            if (!firstLoad) {
+                dayVal = $('#selectedDay').val();
+                monthVal = $('#selectedMonth').val();
+                $('#selectedMonth').empty();
+                let monthFirstOptionFormated = $('<option disabled value="" id="defaultMonth" selected>');
+                $('#selectedMonth').append(monthFirstOptionFormated);
+            }
+            
+            // Determines if months list should start at month number 1 depending on the current date
+            let startMonth = 1;
+            if (booleanCurrentYear) {
+                startMonth = parseInt(currentDate.month);
+            }
+
+            // Loops through months and appends them to the months dropdown list in the DOM
+            for (let i=startMonth; i<13; i++) {
+                let monthOption = $('<option>');
+                if (i < 10) {
+                    monthOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    monthOption.val(i).text(i);
+                }
+                $('#selectedMonth').append(monthOption);
+            }
+
+            // Make sure the selected option in each drop down menu remains consistent after each reload
+            $('#selectedDay option:contains(' + dayVal + ')').prop({selected: true});
+            $('#selectedMonth option:contains(' + monthVal + ')').prop({selected: true});
+        }
+        
+        // Populates the Years in the year dropdown menu
+        function loadYears() {
+            // Loops through years and appends them to the years dropdown list in the DOM
+            for (let i=parseInt(currentDate.year); i<parseInt(currentDate.year)+11; i++) {
+                let yearOption = $('<option>');
+                yearOption.val(i).text(i);
+                $('#selectedYear').append(yearOption);
+                // console.log("Logged " + i);
+            }
+        }
+
+
+        function determineNumberOfDays(monthSelected, yearSelected, booleanCurrentMonth) {
+            if (monthSelected === "02") {
+                    if (yearSelected % 4 === 0) {
+                        return 29;
+                    } else {
+                        return 28;
+                    }
+                } else if (thirtyDayMonths.includes(monthSelected)) {
+                    return 30;
+                } else {
+                    return 31;
+                }
+        }
+
+
+        function isCurrentYearAndMonth(monthSelected, yearSelected) {
+            let isCurrentYearBoolean = yearSelected === currentDate.year;
+                if (isCurrentYearBoolean) {
+                    if (monthSelected === currentDate.month) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }       
+        };
+
+        function loadHours(booleanCurrentDay) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedHour').empty();
+                let hourFirstOptionFormated = $('<option disabled value="" id="defaultHour" selected>');
+                $('#selectedHour').append(hourFirstOptionFormated);
+            }
+            let startHour = 1;
+            if (booleanCurrentDay) {
+                startHour = parseInt(currentTime.hour);
+            }
+            for (let i=startHour; i<13; i++) {
+                let hourOption = $('<option>');
+                if (i < 10) {
+                    hourOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    hourOption.val(i).text(i);
+                }
+                $('#selectedHour').append(hourOption);
+                // console.log("Logged " + i);
+            };
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        function loadMinutes(booleanCurrentDayAndHour) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedMinute').empty();
+                let minuteFirstOptionFormated = $('<option disabled value="" id="defaultMinute" selected>');
+                $('#selectedMinute').append(minuteFirstOptionFormated);
+            }
+            let startMinute = 1;
+            if (booleanCurrentDayAndHour) {
+                startMinute = parseInt(currentTime.minute);
+            }
+            for (let i=startMinute; i<60; i++) {
+                let minuteOption = $('<option>');
+                if (i < 10) {
+                    minuteOption.val(`0${i}`).text(`0${i}`);
+                } else {
+                    minuteOption.val(i).text(i);
+                }
+                $('#selectedMinute').append(minuteOption);
+                // console.log("Logged " + i);
+            };
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        function loadAMPM(booleanCurrentDayAndAM) {
+            if (!firstLoad) {
+                hourVal = $('#selectedHour').val();
+                minuteVal = $('#selectedMinute').val();
+                ampmVal = $('#selectedAMPM').val();
+                $('#selectedAMPM').empty();
+                let ampmFirstOptionFormated = $('<option disabled value="" id="defaultAMPM" selected>');
+                $('#selectedAMPM').append(ampmFirstOptionFormated);
+            }
+            let ampmOption = $('<option>');
+            if (booleanCurrentDayAndAM) {
+                ampmOption.val('AM').text('AM');
+                $('#selectedAMPM').append(ampmOption);
+            }                 
+            ampmOption.val('PM').text('PM');
+            $('#selectedAMPM').append(ampmOption);
+
+            updateDomTimeSelection(hourVal, minuteVal, ampmVal);
+        };
+
+        // Makes sure the selected option in each drop down menu remains consistent after each reload
+        function updateDomTimeSelection(hour, minute, ampm) {
+            $('#selectedMinute option:contains(' + minute + ')').prop({selected: true});
+            $('#selectedHour option:contains(' + hour + ')').prop({selected: true});
+            $('#selectedAMPM option:contains(' + ampm + ')').prop({selected: true});
+        };
+
+
+
+
+        $(document).ready(function() {
+            firstFormLoading();
+            // Change day options depending on the month and if it's a leap year
+            $('#selectedMonth').change(function() {
+                // dayVal = $('#selectedDay').val();
+                monthVal = $('#selectedMonth').val();
+                yearVal = $('#selectedYear').val();
+                let booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
+                let numberOfDays = determineNumberOfDays(monthVal, yearVal, booleanCurrentMonthAndYear);
+                loadDays(numberOfDays, booleanCurrentMonthAndYear);
+
+                console.log("selected month changed.", monthVal, typeof monthVal);
+                
+                // $('#selectedDay option:contains(' + dayVal + ')').prop({selected: true});
+                // $('#selectedMonth option:contains(' + monthVal + ')').prop({selected: true});
+            });
+
+
+
+
+            $('#selectedYear').change(function() {
+                console.log("selected year changed.");
+                // dayVal = $('#selectedDay').val();
+                monthVal = $('#selectedMonth').val();
+                yearVal = $('#selectedYear').val();
+                let isCurrentMonthBoolean = monthVal === currentDate.month;
+                let isCurrentYearBoolean = yearVal === currentDate.year;
+                if (monthVal === "02") {
+                    if (yearVal % 4 === 0) {
+                        loadDays(29, isCurrentMonthBoolean);
+                    } else {
+                        loadDays(28, isCurrentMonthBoolean);
+                    }
+                }
+                console.log("isCurrentYearBoolean", isCurrentYearBoolean);
+                loadMonths(isCurrentYearBoolean);
+                // $('#selectedDay option:contains(' + dayVal + ')').prop({selected: true});
+                // $('#selectedMonth option:contains(' + monthVal + ')').prop({selected: true});
+            })
+
+        });
+    </script>
+    <!-- Materialize Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    
+    <!-- <script src="/assets/js/dateTimePickers.js" type= "text/javascript"></script> -->
+    <!-- <script src="../public/assets/js/view.js" type= "text/javascript"></script>     -->
+    <script>
+        $(document).ready(function() {
+            // Setup side navbar to launch in mobile view
+            $('.sidenav').sidenav();
+
+            //Setup form drop down selections
+            $('select').formSelect(); 
+
+            // Get current date and update DOM date input field with a current date placeholder
+            // $('#datePicker').empty();
+            // $('#defaultMonth').val(moment().format('MM DD, YYYY'));
+
+            // Get current time and update DOM date input field with a current date placeholder
+            // $('#timePicker').empty();
+            // $('#timePicker').val(moment().format('hh:mm A'));
+
+            // $('.dateSelectionField').empty();
+            $('#defaultMonth').empty();
+            $('#defaultDay').empty();
+            $('#defaultYear').empty();
+            // $('#defaultMonth').text(moment().format('MM'));
+
+
+
+
+            $('#selectedMonth option:contains(' + currentDate.month + ')').prop({selected: true});
+            $('#selectedDay option:contains(' + currentDate.day + ')').prop({selected: true});
+            $('#selectedYear option:contains(' + currentDate.year + ')').prop({selected: true});
+
+            // $('#defaultDay').text(moment().format('DD'));
+            // $('#defaultYear').text(moment().format('YYYY'));
+            
+
+            $(".formBtn").on("click", function(event) {
+                event.preventDefault();
+            })
+
+            // TIMEPICKER
+
+                // Variable for all timePicker elements in the DOM
+                const timePickElems = document.querySelectorAll('#timePicker');
+                // Initializing formatting and options for timePicker modals
+                const timePickInstances = M.Timepicker.init(timePickElems, {
+                    autoClose: true
+                });
+
+                // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
+                const timePickInstance = timePickInstances[0];
+
+                // This makes sure we launch the timepicker modal when using tab to navigate the page
+                // This allows for the modal to launch immediately when tab focus onto the date input field
+                // $("#timePicker").focus(function() {
+                //     timePickInstance.open();
+                //     console.log("focusing on the time field");
+                // });
+                // $("#timePicker").change(function() {
+                //     $('#submit').focus();
+                // });
+
+            // DATEPICKER
+                    
+                
+                // const currentDate = {
+                //     year : moment().format('YYYY'),
+                //     month : moment().format('M'),
+                //     day: moment().format('D'),
+                // }
+                // minDate: new Date(`${currentDate.year},${currentDate.month},${currentDate.day}`),
+
+                // let formSelectedDate;
+                let formSelectedDate = {
+                    day: $('#selectedDay').val(),
+                    month: $('#selectedMonth').val(),
+                    year: $('#selectedYear').val()
+                };
+                $('.dateInputs').change(function() {
+                    formSelectedDate = {
+                        day: $('#selectedDay').val(),
+                        month: $('#selectedMonth').val(),
+                        year: $('#selectedYear').val()
+                    };
+                    console.log("formSelectedDate updated: ", formSelectedDate);
+                    datePickInstance.setDate(new Date(moment(`${formSelectedDate.year},${formSelectedDate.month},${formSelectedDate.day}`, ['YYYY,MM,DD'])));
+                });
+                
+                let formattedDay;
+                let formattedMonth;
+                let formattedPickerSelectedDate;
+
+                // Variable for all datePicker elements in the DOM
+                const datePickElems = document.querySelectorAll('#datePicker');
+                // Initializing formatting and options for datePicker modals
+                const datePickInstances = M.Datepicker.init(datePickElems, {
+                    format: 'mmm dd, yyyy',
+                    minDate: new Date(moment().format('YYYY,M,D')),
+                    yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
+                    // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
+                    onSelect: function(time) {
+                        let pickerSelectedDate = new Date(time);
+                        if (pickerSelectedDate.getDate() < 10) {
+                            formattedDay = "0" + String(pickerSelectedDate.getDate());
+                        } else {
+                            formattedDay = String(pickerSelectedDate.getDate());
+                        }
+                        if (pickerSelectedDate.getMonth() + 1 < 10) {
+                            formattedMonth = "0" + String(pickerSelectedDate.getMonth() + 1);
+                        } else {
+                            formattedMonth = String(pickerSelectedDate.getMonth() + 1);
+                        }
+                        formattedPickerSelectedDate = {
+                            selectedDay: formattedDay,
+                            selectedMonth: formattedMonth,
+                            selectedYear: String(pickerSelectedDate.getFullYear()),
+                        };
+                        datePickInstance.close();
+                    },
+                    onClose: function() {
+                        if (formattedPickerSelectedDate.selectedYear === currentDate.year) {
+                            loadMonths(true);
+                        } else {
+                            loadMonths(false);
+                        }                        
+                        let booleanCurrentMonthAndYear = isCurrentYearAndMonth(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear);
+                        let numberOfDays = determineNumberOfDays(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear, booleanCurrentMonthAndYear);
+                        loadDays(numberOfDays, booleanCurrentMonthAndYear);
+
+                        console.log("After datepicker: ", formattedPickerSelectedDate.selectedMonth, typeof formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedDay, formattedPickerSelectedDate.selectedYear);
+                        $('#selectedMonth option:contains(' + formattedPickerSelectedDate.selectedMonth + ')').prop({selected: true});
+                        $('#selectedDay option:contains(' + formattedPickerSelectedDate.selectedDay + ')').prop({selected: true});
+                        $('#selectedYear option:contains(' + formattedPickerSelectedDate.selectedYear + ')').prop({selected: true});
+                    }
+                });
+                
+                // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
+                const datePickInstance = datePickInstances[0];
+
+
+            } );
+
+            function validateForm() {
+                let phoneNumbers;
+                let areMultipleNumbers = false;
+                let phoneNumber = $('#phone').val().replace(/-|\s/g,"");
+
+                $('#phoneError').empty();
+
+                if (phoneNumber.includes(",")) {
+                    phoneNumbers = phoneNumber.split(",");
+                    areMultipleNumbers = true;
+                }
+                if (areMultipleNumbers) {
+                    phoneNumbers.map(elem => {
+                        if (elem.parseInt() === "NaN" || elem.parseInt().String().length != 10) {
+                            $('#phoneError').text("Please provide a valide 10-digit US phone number.");
+                            console.log("Please provide a valide 10-digit US phone number.");
+                            return false;
+                        };
+                    });
+                    return true;
+                } else {
+                    if (phoneNumber.parseInt() === "NaN" || phoneNumber.parseInt().String().length != 10) {
+                        return false;
+                        $('#phoneError').text("Please provide a valide 10-digit US phone number.");
+                        console.log("Please provide a valide 10-digit US phone number.");
+                    } else {
+                        return true;
+                    }
+                }
+            }
+            
+    </script>
+</html>
