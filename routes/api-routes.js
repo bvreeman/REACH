@@ -7,6 +7,10 @@
 
 // Requiring our Contact model
 const db = require('../models');
+const moment = require('moment');
+
+const m = moment()
+;
 
 // console.log('\n<------------------------------>\n');
 // console.log(db.contacts);
@@ -71,6 +75,36 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/remaining', function(req, res) {
+    console.log(req);
+    contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
+    // found = dbContacts.find(function(element) {
+    //   console.log('\n<---------------------------->\n');
+    //   console.log(`CHECK THIS OUT!!! ${element.scheduled_send}`);
+    //   console.log(m);
+    //   console.log('\n<---------------------------->\n');
+    //   return res.json(element.scheduled_send >= m);
+    // function getMinScheduledSend(dbContacts) {
+    //   // console.log(dbContacts);
+    //   // return res.json(dbContacts.reduce((min, p) =>
+    //   //   (p.scheduled_send < min ? p.scheduled_send : min), dbContacts[0].scheduled_send));
+    //   // console.log(m);
+    //   // console.log(moment(dbContacts[0].dataValues.scheduled_send));
+    //   return res.json(dbContacts.filter(e => e.scheduled_send >= m));
+    //   // return res.json(dbContacts.filter(e => e.phone_number === '+15072591109'));
+    // });
+      return res.json(dbContacts);
+    });
+  });
+
+  app.get('/api/earliest', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      dbContacts.sort(function (a, b) {
+        return a.scheduled_send - b.scheduled_send;
+      });
+    });
+  });
+
   // POST route for saving a new contact
   app.post('/api/getNumber', function(req, res) {
     // console.log(`POST: ${req.body}`);
@@ -85,6 +119,7 @@ module.exports = function(app) {
       // scheduled_date: req.body.scheduled_date,
       // scheduled_time: req.body.scheduled_time,
       scheduled_send: req.body.scheduled_send,
+      sent: req.body.sent,
     }).then(function(dbContacts) {
       // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
@@ -93,14 +128,14 @@ module.exports = function(app) {
 
   // // DELETE route for deleting todos. We can get the id of the todo we want to delete from
 
-  app.delete("/outbox/:id", function(req,res) {
+  app.delete('/outbox/:id', function(req, res) {
     contacts.destroy({
       where: {
-        id: req.params.id
-      }
-    }).then(function(dbContacts){
-      res.json(dbContacts)
-    })
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      res.json(dbContacts);
+    });
   });
 
 //   // PUT route for updating todos. We can get the updated todo from req.body
