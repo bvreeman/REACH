@@ -85,6 +85,7 @@ module.exports = function(app) {
       // scheduled_date: req.body.scheduled_date,
       // scheduled_time: req.body.scheduled_time,
       scheduled_send: req.body.scheduled_send,
+      sent: req.body.sent,
     }).then(function(dbContacts) {
       // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
@@ -93,33 +94,31 @@ module.exports = function(app) {
 
   // // DELETE route for deleting todos. We can get the id of the todo we want to delete from
 
-  app.delete("/outbox/:id", function(req,res) {
+  app.delete('/outbox/:id', function(req, res) {
     contacts.destroy({
       where: {
-        id: req.params.id
-      }
-    }).then(function(dbContacts){
-      res.json(dbContacts)
-    })
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      res.json(dbContacts);
+    });
   });
 
   // PUT route for updating todos. We can get the updated todo from req.body
 
-app.put("/edit/:id", function (req,res) {
-  contacts.udpate({
-    contact_name: req.body.contact_name,
-    phone_number: req.body.phone_number,
-    outgoing_message: req.body.outgoing_message,
-    email_address: req.body.email_address,
-    scheduled_send: req.body.scheduled_send
-  }, {
-    where: {
-      id: req.params.id
-  }
-  }).then(function(dbContacts) {
-    res.json(dbContacts)
+  app.put('/edit/:id', function (req, res) {
+    contacts.udpate({
+      contact_name: req.body.contact_name,
+      phone_number: req.body.phone_number,
+      outgoing_message: req.body.outgoing_message,
+      email_address: req.body.email_address,
+      scheduled_send: req.body.scheduled_send,
+    }, {
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      res.json(dbContacts);
+    });
   });
-
-});
-
-}
+};

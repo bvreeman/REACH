@@ -24,6 +24,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    sent: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+
+    },
     // scheduled_date: {
     //   // YYYY-MM-DD HH:MM:SS
     //   type: DataTypes.DATEONLY,
