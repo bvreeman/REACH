@@ -1,5 +1,9 @@
 const Sequelize = require('sequelize');
+const connection;
 
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
 
 const sequelize = new Sequelize('contacts_db', 'root', '', {
   host: 'localhost',
@@ -11,5 +15,7 @@ const sequelize = new Sequelize('contacts_db', 'root', '', {
   },
 });
 
+}
 
+connection.connect();
 module.exports = sequelize;

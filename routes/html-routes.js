@@ -33,7 +33,7 @@ router.get("/edit/:id", function(req, res) {
     let date = dateAndTime[0].split('-');
     let formattedObject = {
       contact_name: dbContacts[0].dataValues.contact_name,
-      phone_number: dbContacts[0].dataValues.phone_number,
+      phone_number: dbContacts[0].dataValues.phone_number.replace("+1", ""),
       email_address: dbContacts[0].dataValues.email_address,
       outgoing_message: dbContacts[0].dataValues.outgoing_message,
       year: date[0],
