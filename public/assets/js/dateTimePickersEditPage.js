@@ -32,10 +32,20 @@ let yearVal = currentDate.year;
 let firstLoad = true;
 
 
-// Function renders the dropdown menu option to the DOM and selects current time and date values on first load
+// Function renders the dropdown menu option to the DOM depending on the
+// last saved outgoing time and date for the message being edited
 function firstFormLoading() {
-    loadDays(determineNumberOfDays(currentDate.month, currentDate.year, true), true);
-    loadMonths(true);
+    if ($('#hbYear').text() === currentDate.year) {
+        if ($('#hbMonth').text() === currentDate.month) {
+            loadDays(determineNumberOfDays($('#hbMonth').text(), $('#hbYear').text(), true), true);
+        } else {
+            loadDays(determineNumberOfDays($('#hbMonth').text(), $('#hbYear').text(), false), false);
+        }
+        loadMonths(true);
+    } else {
+        loadDays(determineNumberOfDays($('#hbMonth').text(), $('#hbYear').text(), false), false);
+        loadMonths(false);
+    }
     loadYears();
     loadHours(false);
     loadMinutes(false);
@@ -47,6 +57,7 @@ function firstFormLoading() {
 
 // Function populates the days in the day dropdown menu
 function loadDays(daysInMonth, booleanCurrentMonth) {
+    // console.log('Reloading days');
     // Clears days list if not the first page load
     if (!firstLoad) {
         dayVal = $('#selectedDay').val();
@@ -284,13 +295,16 @@ $(document).ready(function() {
         loadMonths(isCurrentYearBoolean);
     });
 
-    // Empties date dropdown placeholders and selects values for current date
+    // Empties date and time dropdown placeholders and selects values for messages previously saved outgoing date and time
     $('#defaultMonth').empty();
     $('#defaultDay').empty();
     $('#defaultYear').empty();
-    $('#selectedMonth option:contains(' + currentDate.month + ')').prop({selected: true});
-    $('#selectedDay option:contains(' + currentDate.day + ')').prop({selected: true});
-    $('#selectedYear option:contains(' + currentDate.year + ')').prop({selected: true});
+    $('#selectedYear option:contains(' + $('#hbYear').text() + ')').prop({selected: true});
+    $('#selectedMonth option:contains(' + $('#hbMonth').text() + ')').prop({selected: true});
+    $('#selectedDay option:contains(' + $('#hbDay').text() + ')').prop({selected: true});
+    $('#selectedHour option:contains(' + $('#hbHour').text() + ')').prop({selected: true});
+    $('#selectedMinute option:contains(' + $('#hbMinute').text() + ')').prop({selected: true});
+    $('#selectedAMPM option:contains(' + $('#hbAMPM').text() + ')').prop({selected: true});
 
     // TIMEPICKER
 
