@@ -28,7 +28,8 @@ body {
 textarea.materialize-textarea {
   height: 4rem;
 }
-#submit:focus {
+#submit:focus,
+#update:focus {
   background-color: #4a148c !important;
 }
 .formBtn {

@@ -206,7 +206,7 @@ function loadMinutes(booleanCurrentDayAndHour) {
     const minuteFirstOptionFormated = $('<option disabled value="" id="defaultMinute" selected>');
     $('#selectedMinute').append(minuteFirstOptionFormated);
   }
-  let startMinute = 1;
+  let startMinute = 0;
   if (booleanCurrentDayAndHour) {
     startMinute = parseInt(currentTime.minute);
   }
@@ -303,14 +303,42 @@ $(document).ready(function() {
 
   // TIMEPICKER
 
+
+  $('.timeInputs').change(function() {
+    let formSelectedTime = {
+    hour: $('#selectedHour').val(),
+    minute: $('#selectedMinute').val(),
+    ampm: $('#selectedAMPM').val(),
+    };
+
+    timePickInstance.options.defaultTime = `${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`;
+    timePickInstance._updateTimeFromInput(`${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`);
+  });
   // Variable for all timePicker elements in the DOM
   const timePickElems = document.querySelectorAll('#timePicker');
   // Initializing formatting and options for timePicker modals
   const timePickInstances = M.Timepicker.init(timePickElems, {
     autoClose: true,
+    defaultTime: `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`,
+    onSelect: function(time) {
+      const timeAndAMPMArray = time.split(" ");
+      const hoursAndMinutesArray = timeAndAMPMArray[0].split(":");
+      formattedPickerSelectedTime = {
+          selectedHour: hoursAndMinutesArray[0],
+          selectedMinute: hoursAndMinutesArray[1],
+          selectedAMPM: timeAndAMPMArray[1]
+      };
+    },
+    onClose: function() {
+        $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
+        $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
+        $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
+        timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
+    }
   });
   // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
   const timePickInstance = timePickInstances[0];
+
 
   // END OF TIMEPICKER SECTION
 
@@ -340,9 +368,11 @@ $(document).ready(function() {
   const datePickElems = document.querySelectorAll('#datePicker');
   // Initializing formatting and options for datePicker modals
   const datePickInstances = M.Datepicker.init(datePickElems, {
-    format: 'mmm dd, yyyy',
+    format: 'mm dd, yyyy',
     minDate: new Date(moment().format('YYYY,M,D')),
     yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
+    defaultDate: new Date(moment(`${$('#selectedYear').val()},${$('#selectedMonth').val()},${$('#selectedDay').val()}`, ['YYYY,MM,DD'])),
+    setDefaultDate: true,
     // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
     onSelect: function(time) {
       const pickerSelectedDate = new Date(time);
