@@ -9895,9 +9895,11 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
     }, {
       key: "_updateTimeFromInput",
-      value: function _updateTimeFromInput() {
+      // Majid addition added inputTime parameter
+      value: function _updateTimeFromInput(inputTime) {
         // Get the time
-        var value = ((this.el.value || this.options.defaultTime || '') + '').split(':');
+        // Majid addition removed this.el.value and placed the inputTime parameter on conditional
+        var value = ((inputTime || this.options.defaultTime || '') + '').split(':');
         if (this.options.twelveHour && !(typeof value[1] === 'undefined')) {
           if (value[1].toUpperCase().indexOf("AM") > 0) {
             this.amOrPm = 'AM';
@@ -10071,7 +10073,14 @@ $jscomp.polyfill = function (e, r, p, m) {
         }
 
         this.isOpen = false;
+        // Majid addition similar to datepicker OnClose method
+        if (typeof this.options.onClose === 'function') {
+          this.options.onClose.call(this);
+        }
+
         this.modal.close();
+        // Majid addition return this function
+        return this;
       }
 
       /**
@@ -10095,8 +10104,14 @@ $jscomp.polyfill = function (e, r, p, m) {
           this.$el.trigger('change');
         }
 
+        // Majid addition call onSelect for timepicker like the datepicker
+        if (typeof this.options.onSelect === 'function') {
+          this.options.onSelect.call(this, this.el.value);
+        }
+
         this.close();
         this.el.focus();
+
       }
     }, {
       key: "clear",

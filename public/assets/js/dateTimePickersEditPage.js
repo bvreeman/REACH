@@ -303,24 +303,42 @@ $(document).ready(function() {
 
   // TIMEPICKER
 
+
+  $('.timeInputs').change(function() {
+    let formSelectedTime = {
+    hour: $('#selectedHour').val(),
+    minute: $('#selectedMinute').val(),
+    ampm: $('#selectedAMPM').val(),
+    };
+
+    timePickInstance.options.defaultTime = `${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`;
+    timePickInstance._updateTimeFromInput(`${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`);
+  });
   // Variable for all timePicker elements in the DOM
   const timePickElems = document.querySelectorAll('#timePicker');
   // Initializing formatting and options for timePicker modals
   const timePickInstances = M.Timepicker.init(timePickElems, {
     autoClose: true,
+    defaultTime: `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`,
+    onSelect: function(time) {
+      const timeAndAMPMArray = time.split(" ");
+      const hoursAndMinutesArray = timeAndAMPMArray[0].split(":");
+      formattedPickerSelectedTime = {
+          selectedHour: hoursAndMinutesArray[0],
+          selectedMinute: hoursAndMinutesArray[1],
+          selectedAMPM: timeAndAMPMArray[1]
+      };
+    },
+    onClose: function() {
+        $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
+        $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
+        $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
+        timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
+    }
   });
   // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
   const timePickInstance = timePickInstances[0];
 
-  $('.timeInputs').change(function() {
-    formSelectedTime = {
-      hour: $('#selectedHour').val(),
-      minute: $('#selectedMinute').val(),
-      ampm: $('#selectedAMPM').val(),
-    };
-
-    timePickInstance.options.defaultTime =`${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`;
-  });
 
   // END OF TIMEPICKER SECTION
 
