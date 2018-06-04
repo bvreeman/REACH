@@ -42,3 +42,27 @@ $('body').on('click', '.delete', function(event) {
     location.reload();
   });
 });
+
+$('body').on('click', '.edit', function(event) {
+  event.preventDefault();
+  const id = $(this).data('id');
+  window.location.href = `/edit/${id}`;
+});
+
+$('#submit').on('click', function (event) {
+  event.preventDefault();
+
+  $.ajax({
+    method: 'POST',
+    url: '/api/getNumber',
+    data: {
+      phone_number: formattedPhone,
+      outgoing_message: newMessage,
+      // scheduled_date: formattedDate,
+      // scheduled_time: formattedTime,
+      scheduled_send: formattedDateTime,
+    },
+  }).then(function(toTheServer) {
+    console.log(toTheServer);
+  });
+});

@@ -77,39 +77,12 @@ module.exports = function(app) {
   //   });
   // }
 
-  // app.get('/api/remaining', function(req, res) {
-  //   // sequelize.query('SELECT * FROM contacts', { sent: false }).then((test) => {
-  //   contacts.findAll({ limit: 1, order: ['scheduled_send'] }).then(function(dbContacts) {
-  //     // console.log(dbContacts[0].dataValues.id);
-  //     outgoingID = dbContacts[0].dataValues.id;
-  //     console.log(outgoingID);
-  //     return res.json(dbContacts);
-  //     // });
-  //   }).then(app.get(`/testTwilio/:${outgoingID}`, function(request, response) {
-  //     contacts.findOne({
-  //       where: {
-  //         id: request.params.id,
-  //       },
-  //     }).then(function(dbContacts) {
-  //       // console.log('\n<---------------------->\n');
-  //       // console.log(dbContacts.dataValues.phone_number);
-  //       // console.log('\n<---------------------->\n');
-
-  //       phoneNumber = dbContacts.dataValues.phone_number;
-  //       outgoingMessage = dbContacts.dataValues.outgoing_message;
-
-  //       client.messages.create({
-  //         from: trialNumber,
-  //         to: phoneNumber,
-  //         body: outgoingMessage,
-  //       }, function(err, data) {
-  //         if (err) {
-  //           console.log(err);
-  //         } else console.log(data.body);
-  //       });
-  //     });
-  //   }));
-  // });
+  app.get('/api/remaining', function(req, res) {
+    console.log(req);
+    contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
+      return res.json(dbContacts);
+    });
+  });
 
   app.get('/testTwilio/:id', function(req, res) {
     contacts.findOne({
@@ -183,26 +156,21 @@ module.exports = function(app) {
     });
   });
 
-  //   // PUT route for updating todos. We can get the updated todo from req.body
-  //   app.put("/api/todos", function(req, res) {
-  app.put('/api/getNumber', function(req, res) {
-    // Update takes in an object describing the properties we want to update, and
-    // we use where to describe which objects we want to update
-    contacts.update({
-      contact_name: req.body.contact_name,
-      phone_number: req.body.phone_number,
-      outgoing_message: req.body.outgoing_message,
-      email_address: req.body.email_address,
-      // scheduled_date: req.body.scheduled_date,
-      // scheduled_time: req.body.scheduled_time,
-      scheduled_send: req.body.scheduled_send,
-      sent: req.body.sent,
-    }, {
-      where: {
-        id: req.body.id,
-      },
-    }).then(function(dbContacts) {
-      res.json(dbContacts);
-    });
-  });
+  // PUT route for updating todos. We can get the updated todo from req.body
+
+//   app.put('/edit/:id', function (req, res) {
+//     contacts.udpate({
+//       contact_name: req.body.contact_name,
+//       phone_number: req.body.phone_number,
+//       outgoing_message: req.body.outgoing_message,
+//       email_address: req.body.email_address,
+//       scheduled_send: req.body.scheduled_send,
+//     }, {
+//       where: {
+//         id: req.params.id,
+//       },
+//     }).then(function(dbContacts) {
+//       res.json(dbContacts);
+//     });
+//   });
 };
