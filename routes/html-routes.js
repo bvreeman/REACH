@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../models');
+
 const contacts = db.contacts;
 const moment = require('moment');
 
@@ -19,12 +20,11 @@ router.get('/', function(req, res) {
   res.render('home2');
 });
 
-router.get("/outbox", function(req, res) {
+router.get('/outbox', function(req, res) {
   contacts.findAll({}).then(function(dbContacts) {
-    return res.render("outbox",{dbContacts: dbContacts});;
-
+    return res.render('outbox', { dbContacts: dbContacts });
   });
-});  
+});
 
 router.get("/edit/:id", function(req, res) {
   contacts.findAll({where: {id:req.params.id}}).then(function(dbContacts) {

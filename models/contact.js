@@ -26,8 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     sent: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
-
+      defaultValue: 0,
     },
     // scheduled_date: {
     //   // YYYY-MM-DD HH:MM:SS
