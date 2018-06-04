@@ -77,10 +77,21 @@ module.exports = function(app) {
   //   });
   // }
 
+  const unsentArray = [];
+  const sentArray = [];
+
   app.get('/api/remaining', function(req, res) {
-    console.log(req);
     contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
-      return res.json(dbContacts);
+      // console.log(dbContacts);
+      for (let i = 0; i < dbContacts.length; i++) {
+        if (dbContacts[i].dataValues.sent === false) {
+          unsentArray.push(dbContacts);
+          // return res.json(unsentArray);
+        } if (dbContacts[i].dataValues.sent === true) {
+          sentArray.push(dbContacts);
+        }
+      }
+      return res.json(unsentArray);
     });
   });
 
@@ -102,6 +113,25 @@ module.exports = function(app) {
           console.log(err);
         } else console.log(data.body);
       });
+    });
+  });
+
+  app.get('/sendAll', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      for (let i = 0; i < dbContacts.length; i++) {
+        phoneNumber = dbContacts[i].dataValues.phone_number;
+        outgoingMessage = dbContacts[i].dataValues.outgoing_message;
+
+        client.messages.create({
+          from: trialNumber,
+          to: phoneNumber,
+          body: outgoingMessage,
+        }, function(err, data) {
+          if (err) {
+            console.log(err);
+          } else console.log(data.body);
+        });
+      }
     });
   });
 
