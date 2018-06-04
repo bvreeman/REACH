@@ -9306,12 +9306,18 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleInputClick",
       value: function _handleInputClick() {
-        this.open();
+        // Majid addition of dummyEl and && conditional
+        let dummyEl = document.getElementById('datePicker');
+        if (document.activeElement === dummyEl) {
+          this.open();
+        }
       }
     }, {
       key: "_handleInputKeydown",
       value: function _handleInputKeydown(e) {
-        if (e.which === M.keys.ENTER) {
+        // Majid addition of dummyEl and && conditional
+        let dummyEl = document.getElementById('datePicker');
+        if (e.which === M.keys.ENTER && document.activeElement === dummyEl) {
           e.preventDefault();
           this.open();
         }
@@ -9645,7 +9651,9 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleInputKeydown",
       value: function _handleInputKeydown(e) {
-        if (e.which === M.keys.ENTER) {
+        // Majid addition of dummyEL and && conditional
+        let dummyEl = document.getElementById('timePicker');
+        if (e.which === M.keys.ENTER && document.activeElement === dummyEl) {
           e.preventDefault();
           this.open();
         }
