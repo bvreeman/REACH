@@ -28,7 +28,7 @@ router.get('/outbox', function(req, res) {
 
 router.get("/edit/:id", function(req, res) {
   contacts.findAll({where: {id:req.params.id}}).then(function(dbContacts) {
-    console.log(dbContacts, dbContacts[0].dataValues.id);
+    // console.log(dbContacts, dbContacts[0].dataValues.id);
     let dateAndTime = dbContacts[0].dataValues.scheduled_send.split(' ');
     let date = dateAndTime[0].split('-');
     let formattedObject = {
