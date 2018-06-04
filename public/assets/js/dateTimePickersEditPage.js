@@ -368,9 +368,11 @@ $(document).ready(function() {
   const datePickElems = document.querySelectorAll('#datePicker');
   // Initializing formatting and options for datePicker modals
   const datePickInstances = M.Datepicker.init(datePickElems, {
-    format: 'mmm dd, yyyy',
+    format: 'mm dd, yyyy',
     minDate: new Date(moment().format('YYYY,M,D')),
     yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
+    defaultDate: new Date(moment(`${$('#selectedYear').val()},${$('#selectedMonth').val()},${$('#selectedDay').val()}`, ['YYYY,MM,DD'])),
+    setDefaultDate: true,
     // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
     onSelect: function(time) {
       const pickerSelectedDate = new Date(time);
