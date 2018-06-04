@@ -90,10 +90,6 @@ module.exports = function(app) {
         id: req.params.id,
       },
     }).then(function(dbContacts) {
-      // console.log('\n<---------------------->\n');
-      // console.log(dbContacts.dataValues.phone_number);
-      // console.log('\n<---------------------->\n');
-
       phoneNumber = dbContacts.dataValues.phone_number;
       outgoingMessage = dbContacts.dataValues.outgoing_message;
 
