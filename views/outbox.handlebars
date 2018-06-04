@@ -7,23 +7,23 @@
                     <table id="table" class="table table-hover table-mc-light-blue">
                         <thead>
                             <tr>
-                                <th>Last Updated</th>
-                                <th>Outgoing Date/Time</th>
-                                <th>Message Body</th>
-                                <th>Contacts</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th data-title="Last Updated">Last Updated</th>
+                                <th data-title="Outgoing Date/Time">Outgoing Date/Time</th>
+                                <th data-title="Message Body">Message Body</th>
+                                <th data-title="Contacts">Contacts</th>
+                                <th data-title="Edit">Edit</th>
+                                <th data-title="Delete">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each dbContacts}}
                             <tr>
-                                <td></td>
-                                <td>{{scheduled_send}}</td>
-                                <td>{{outgoing_message}}</td>
-                                <td>{{phone_number}}</td>
-                                <td><button class = "btn waves-effect waves-light pink darken-1 tableBtn edit" data-id="{{this.id}}">Edit</button></td>
-                                <td><button class = "btn waves-effect waves-light pink darken-1 tableBtn delete" data-id="{{this.id}}">Delete</button></td>
+                                <td data-title="Last Updated"></td>
+                                <td data-title="Outgoing Date/Time">{{scheduled_send}}</td>
+                                <td data-title="Message Body">{{outgoing_message}}</td>
+                                <td data-title="Contacts">{{phone_number}}</td>
+                                <td data-title="Edit"><button class = "btn waves-effect waves-light pink darken-1 tableBtn edit" data-id="{{this.id}}">Edit</button></td>
+                                <td data-title="Delete"><button class = "btn waves-effect waves-light pink darken-1 tableBtn delete" data-id="{{this.id}}">Delete</button></td>
                             </tr>
                             {{/each}}
                         </tbody>
