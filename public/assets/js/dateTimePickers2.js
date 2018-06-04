@@ -34,11 +34,11 @@ let firstLoad = true;
 
 // Function renders the dropdown menu option to the DOM and selects current time and date values on first load
 function firstFormLoading() {
-    loadDays(30,true);
+    loadDays(determineNumberOfDays(currentDate.month, currentDate.year, true), true);
     loadMonths(true);
     loadYears();
-    loadHours(true);
-    loadMinutes(true);
+    loadHours(false);
+    loadMinutes(false);
     loadAMPM(true);
     firstLoad = false;
 }
@@ -278,15 +278,9 @@ $(document).ready(function() {
     $('#selectedYear').change(function() {
         monthVal = $('#selectedMonth').val();
         yearVal = $('#selectedYear').val();
-        let isCurrentMonthBoolean = monthVal === currentDate.month;
+        let booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
         let isCurrentYearBoolean = yearVal === currentDate.year;
-        if (monthVal === "02") {
-            if (yearVal % 4 === 0) {
-                loadDays(29, isCurrentMonthBoolean);
-            } else {
-                loadDays(28, isCurrentMonthBoolean);
-            }
-        };
+        loadDays(determineNumberOfDays(monthVal,yearVal,booleanCurrentMonthAndYear), booleanCurrentMonthAndYear);
         loadMonths(isCurrentYearBoolean);
     });
 
