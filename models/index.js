@@ -10,9 +10,9 @@ const config = require(`${__dirname}/../config/config.json`)[env];
 const db = {};
 
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  const sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  const sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
