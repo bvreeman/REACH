@@ -195,7 +195,7 @@ function loadMinutes(booleanCurrentDayAndHour) {
     const minuteFirstOptionFormated = $('<option disabled value="" id="defaultMinute" selected>');
     $('#selectedMinute').append(minuteFirstOptionFormated);
   }
-  let startMinute = 1;
+  let startMinute = 0;
   if (booleanCurrentDayAndHour) {
     startMinute = parseInt(currentTime.minute);
   }
