@@ -13,7 +13,7 @@ $('#submit').on('click', function (event) {
   const newTime = `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`;
   const formattedTime = moment(newTime, ['hh:mm A']).format('HH:mm');
   const dateTime = `${formattedDate} ${formattedTime}`;
-  const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
+  const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD hh:mm A');
 
   $.ajax({
     method: 'POST',
