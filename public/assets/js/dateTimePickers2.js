@@ -298,6 +298,16 @@ $(document).ready(function() {
   // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
   const timePickInstance = timePickInstances[0];
 
+  $('.timeInputs').change(function() {
+    formSelectedTime = {
+      hour: $('#selectedHour').val(),
+      minute: $('#selectedMinute').val(),
+      ampm: $('#selectedAMPM').val(),
+    };
+
+    timePickInstance.options.defaultTime =`${formSelectedTime.hour}:${formSelectedTime.minute} ${formSelectedTime.ampm}`;
+  });
+
   // END OF TIMEPICKER SECTION
 
   // DATEPICKER
@@ -321,6 +331,7 @@ $(document).ready(function() {
     };
     datePickInstance.setDate(new Date(moment(`${formSelectedDate.year},${formSelectedDate.month},${formSelectedDate.day}`, ['YYYY,MM,DD'])));
   });
+
 
   // Variable for all datePicker elements in the DOM
   const datePickElems = document.querySelectorAll('#datePicker');
