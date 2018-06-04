@@ -1,5 +1,4 @@
 const express = require('express');
-const moment = require('moment');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -13,8 +12,6 @@ app.use(bodyParser.json());
 require('dotenv').config();
 
 require('./routes/api-routes.js')(app);
-
-const mysql = require('mysql');
 
 require('nodemon');
 const exphbs = require('express-handlebars');

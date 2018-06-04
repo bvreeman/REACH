@@ -85,8 +85,8 @@ function loadDays(daysInMonth, booleanCurrentMonth) {
   }
 
   // Makes sure the selected option in each drop down menu remains consistent after each reload
-  $(`#selectedDay option:contains(${dayVal })`).prop({ selected: true });
-  $(`#selectedMonth option:contains(${monthVal })`).prop({ selected: true });
+  $(`#selectedDay option:contains(${dayVal})`).prop({ selected: true });
+  $(`#selectedMonth option:contains(${monthVal})`).prop({ selected: true });
 }
 // END OF loadDays() FUNCTION
 
@@ -121,7 +121,7 @@ function loadMonths(booleanCurrentYear) {
 
   // Makes sure the selected option in each drop down menu remains consistent after each reload
   $(`#selectedDay option:contains(${dayVal})`).prop({ selected: true });
-  $(`#selectedMonth option:contains(${monthVal })`).prop({ selected: true });
+  $(`#selectedMonth option:contains(${monthVal})`).prop({ selected: true });
 }
 // END OF loadMonths() FUNCTION
 
@@ -141,34 +141,30 @@ function loadYears() {
 // Function returns number of days to display in days dropdown menu
 // Takes into account the month of February and leap years
 function determineNumberOfDays(monthSelected, yearSelected, booleanCurrentMonth) {
-    if (monthSelected === "02") {
-            if (yearSelected % 4 === 0) {
-                return 29;
-            } 
-                return 28;
-            
-        } else if (thirtyDayMonths.includes(monthSelected)) {
-            return 30;
-        } 
-            return 31;
-        
+  if (monthSelected === '02') {
+    if (yearSelected % 4 === 0) {
+      return 29;
+    }
+    return 28;
+  } else if (thirtyDayMonths.includes(monthSelected)) {
+    return 30;
+  }
+  return 31;
 }
 // END OF determineNumberOfDays() FUNCTION
 
 
 // Function returns boolean value of true if the current month and year are currently selected
 function isCurrentYearAndMonth(monthSelected, yearSelected) {
-    let isCurrentYearBoolean = yearSelected === currentDate.year;
-        if (isCurrentYearBoolean) {
-            if (monthSelected === currentDate.month) {
-                return true;
-            } 
-                return false;
-            
-        } 
-            return false;
-               
-};
+  const isCurrentYearBoolean = yearSelected === currentDate.year;
+  if (isCurrentYearBoolean) {
+    if (monthSelected === currentDate.month) {
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
 // END OF isCurrentYearAndMonth() FUNCTION
 
 
@@ -257,7 +253,7 @@ function loadAMPM(booleanCurrentDayAndAM) {
 // This keeps selected values consistent as dropdown options dynamically change
 function updateDomTimeSelection(hour, minute, ampm) {
   $(`#selectedMinute option:contains(${minute})`).prop({ selected: true });
-  $(`#selectedHour option:contains(${ hour})`).prop({ selected: true });
+  $(`#selectedHour option:contains(${hour})`).prop({ selected: true });
   $(`#selectedAMPM option:contains(${ampm})`).prop({ selected: true });
 }
 // END OF updateDomTimeSelection() FUNCTION
@@ -298,12 +294,12 @@ $(document).ready(function() {
   $('#defaultMonth').empty();
   $('#defaultDay').empty();
   $('#defaultYear').empty();
-  $(`#selectedYear option:contains(${ $('#hbYear').text()})`).prop({ selected: true });
+  $(`#selectedYear option:contains(${$('#hbYear').text()})`).prop({ selected: true });
   $(`#selectedMonth option:contains(${$('#hbMonth').text()})`).prop({ selected: true });
-  $(`#selectedDay option:contains(${$('#hbDay').text() })`).prop({ selected: true });
+  $(`#selectedDay option:contains(${$('#hbDay').text()})`).prop({ selected: true });
   $(`#selectedHour option:contains(${$('#hbHour').text()})`).prop({ selected: true });
-  $(`#selectedMinute option:contains(${ $('#hbMinute').text()})`).prop({ selected: true });
-  $(`#selectedAMPM option:contains(${$('#hbAMPM').text() })`).prop({ selected: true });
+  $(`#selectedMinute option:contains(${$('#hbMinute').text()})`).prop({ selected: true });
+  $(`#selectedAMPM option:contains(${$('#hbAMPM').text()})`).prop({ selected: true });
 
   // TIMEPICKER
 
@@ -351,12 +347,12 @@ $(document).ready(function() {
     onSelect: function(time) {
       const pickerSelectedDate = new Date(time);
       if (pickerSelectedDate.getDate() < 10) {
-        formattedDay = `0${  String(pickerSelectedDate.getDate())}`;
+        formattedDay = `0${String(pickerSelectedDate.getDate())}`;
       } else {
         formattedDay = String(pickerSelectedDate.getDate());
       }
       if (pickerSelectedDate.getMonth() + 1 < 10) {
-        formattedMonth = `0${  String(pickerSelectedDate.getMonth() + 1)}`;
+        formattedMonth = `0${String(pickerSelectedDate.getMonth() + 1)}`;
       } else {
         formattedMonth = String(pickerSelectedDate.getMonth() + 1);
       }
@@ -377,9 +373,9 @@ $(document).ready(function() {
       const booleanCurrentMonthAndYear = isCurrentYearAndMonth(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear);
       const numberOfDays = determineNumberOfDays(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear, booleanCurrentMonthAndYear);
       loadDays(numberOfDays, booleanCurrentMonthAndYear);
-      $(`#selectedMonth option:contains(${formattedPickerSelectedDate.selectedMonth })`).prop({ selected: true });
+      $(`#selectedMonth option:contains(${formattedPickerSelectedDate.selectedMonth})`).prop({ selected: true });
       $(`#selectedDay option:contains(${formattedPickerSelectedDate.selectedDay})`).prop({ selected: true });
-      $(`#selectedYear option:contains(${formattedPickerSelectedDate.selectedYear })`).prop({ selected: true });
+      $(`#selectedYear option:contains(${formattedPickerSelectedDate.selectedYear})`).prop({ selected: true });
     },
   });
 
