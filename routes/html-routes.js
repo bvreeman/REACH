@@ -26,14 +26,14 @@ router.get('/outbox', function(req, res) {
   });
 });
 
-router.get("/edit/:id", function(req, res) {
-  contacts.findAll({where: {id:req.params.id}}).then(function(dbContacts) {
-    console.log(dbContacts, dbContacts[0].dataValues.id);
-    let dateAndTime = dbContacts[0].dataValues.scheduled_send.split(' ');
-    let date = dateAndTime[0].split('-');
-    let formattedObject = {
+router.get('/edit/:id', function(req, res) {
+  contacts.findAll({ where: { id: req.params.id } }).then(function(dbContacts) {
+    // console.log(dbContacts, dbContacts[0].dataValues.id);
+    const dateAndTime = dbContacts[0].dataValues.scheduled_send.split(' ');
+    const date = dateAndTime[0].split('-');
+    const formattedObject = {
       contact_name: dbContacts[0].dataValues.contact_name,
-      phone_number: dbContacts[0].dataValues.phone_number.replace("+1", ""),
+      phone_number: dbContacts[0].dataValues.phone_number.replace('+1', ''),
       email_address: dbContacts[0].dataValues.email_address,
       outgoing_message: dbContacts[0].dataValues.outgoing_message,
       year: date[0],
@@ -41,12 +41,11 @@ router.get("/edit/:id", function(req, res) {
       day: date[2],
       hour: moment(dateAndTime[1], ['HH:mm']).format('hh'),
       minute: moment(dateAndTime[1], ['HH:mm']).format('mm'),
-      ampm: moment(dateAndTime[1], ['HH:mm']).format('A')
-    }
-    return res.render("edit",formattedObject);;
-
+      ampm: moment(dateAndTime[1], ['HH:mm']).format('A'),
+    };
+    return res.render('edit', formattedObject);
   });
-});  
+});
 
 // Export routes for server.js to use.
 module.exports = router;

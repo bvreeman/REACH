@@ -28,12 +28,17 @@ body {
 textarea.materialize-textarea {
   height: 4rem;
 }
-#submit:focus {
+#submit:focus,
+#update:focus {
   background-color: #4a148c !important;
 }
 .formBtn {
   margin-top: 1.5em;
 }
-.formBtn:focus {
+.formBtn:focus,
+.tableBtn:focus {
   background-color: #4a148c !important;
+}
+.table-responsive-vertical {
+  margin: .5rem 0 1rem 0;
 }

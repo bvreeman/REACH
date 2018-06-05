@@ -7,6 +7,13 @@
 
 // Requiring our Contact model
 const db = require('../models');
+const moment = require('moment');
+// const Sequelize = require('sequelize');
+
+// const sequelize = new Sequelize('database', 'username', 'password');
+
+
+const m = moment();
 
 // console.log('\n<------------------------------>\n');
 // console.log(db.contacts);
@@ -39,8 +46,11 @@ module.exports = function(app) {
   });
   let phoneNumber;
   let outgoingMessage;
+  let outgoingID;
 
-  app.get('/testTwilio/:id', function(req, res) {
+  // function that puts an ID into outgoingID based on
+  // scheduled_send. Goes into /testTwilio/:id below.
+  app.get(`/testTwilio/:${outgoingID}`, function(req, res) {
     contacts.findOne({
       where: {
         id: req.params.id,
@@ -66,12 +76,106 @@ module.exports = function(app) {
     });
   });
 
+  const unsentArray = [];
+  const sentArray = [];
+
+  app.get('/api/remaining', function(req, res) {
+    // contacts.findAll({ where: { sent: req.params.sent = false } })
+    // .then(function(dbContacts) {
+    //   return dbContacts;
+    // }).then(contacts.findAll({
+    //   where: {
+    //     id: req.params.id,
+    //   },
+    //   order: [
+    //     ['scheduled_send'],
+    //   ],
+    // })).then(function(dbContacts) {
+    //   return res.json(dbContacts);
+    // });
+    contacts.findAll(
+      { 
+        where: 
+        { 
+          sent: false 
+        },
+        order: [
+          ['scheduled_send', 'ASC']
+        ],
+      }).then(function(dbContacts) {
+        return res.json(dbContacts);
+      });
+    // dbContacts.findAll(({ order: [['scheduled_send']] }));
+    // .then(function(dbContacts) {
+    // contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
+    // console.log(dbContacts);
+    // for (let i = 0; i < dbContacts.length; i++) {
+    //   if (dbContacts[i].dataValues.sent === false) {
+    //     unsentArray.push(dbContacts);
+    //     // return res.json(unsentArray);
+    //   } else if (dbContacts[i].dataValues.sent === true) {
+    //     sentArray.push(dbContacts);
+    //   }
+    // }
+  });
+
+  app.get('/testTwilio/:id', function(req, res) {
+    contacts.findOne({
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      phoneNumber = dbContacts.dataValues.phone_number;
+      outgoingMessage = dbContacts.dataValues.outgoing_message;
+
+      client.messages.create({
+        from: trialNumber,
+        to: phoneNumber,
+        body: outgoingMessage,
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+        } else console.log(data.body);
+      });
+    });
+  });
+
+  app.get('/sendAll', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      for (let i = 0; i < dbContacts.length; i++) {
+        phoneNumber = dbContacts[i].dataValues.phone_number;
+        outgoingMessage = dbContacts[i].dataValues.outgoing_message;
+
+        client.messages.create({
+          from: trialNumber,
+          to: phoneNumber,
+          body: outgoingMessage,
+        }, function(err, data) {
+          if (err) {
+            console.log(err);
+          } else console.log(data.body);
+        });
+      }
+    });
+  });
+
   app.get('/api/getNumber', function(req, res) {
     contacts.findAll({}).then(function(dbContacts) {
       return res.json(dbContacts);
     });
   });
 
+<<<<<<< HEAD
+=======
+  app.get('/api/earliest', function(req, res) {
+    contacts.findAll({}).then(function(dbContacts) {
+      dbContacts.sort(function (a, b) {
+        return a.scheduled_send - b.scheduled_send;
+      });
+    });
+  });
+
+>>>>>>> 11184b8e98012a67f2ca7883160fe6d60219f86c
   app.get('/send/:id', function(req, res) {
     contacts.update(
       {
@@ -86,16 +190,16 @@ module.exports = function(app) {
       },
     ).then(function(result) {
       return res.json(result);
+<<<<<<< HEAD
       console.log(result);
+=======
+      // console.log(result);
+>>>>>>> 11184b8e98012a67f2ca7883160fe6d60219f86c
     });
   });
 
   // POST route for saving a new contact
   app.post('/api/getNumber', function(req, res) {
-    // console.log(`POST: ${req.body}`);
-    // create takes an argument of an object describing the item we want to
-    // insert into our table. In this case we just we pass in an object with a text
-    // and complete property (req.body)
     contacts.create({
       contact_name: req.body.contact_name,
       phone_number: req.body.phone_number,
@@ -105,7 +209,6 @@ module.exports = function(app) {
       // scheduled_time: req.body.scheduled_time,
       scheduled_send: req.body.scheduled_send,
     }).then(function(dbContacts) {
-      // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
     });
   });
@@ -146,7 +249,7 @@ module.exports = function(app) {
   // PUT route for updating todos. We can get the updated todo from req.body
 
   app.put('/edit/:id', function (req, res) {
-    contacts.udpate({
+    contacts.update({
       contact_name: req.body.contact_name,
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
@@ -155,7 +258,7 @@ module.exports = function(app) {
     }, {
       where: {
         id: req.params.id,
-      },
+      }
     }).then(function(dbContacts) {
       res.json(dbContacts);
     });
