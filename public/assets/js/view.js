@@ -33,7 +33,7 @@ $('#submit').on('click', function (event) {
 $('body').on('click', '.delete', function(event) {
   const id = $(this).data('id');
   console.log('it works!');
-  $.ajax(`/outbox/${id}`, {
+  $.ajax(`/outbox/=${id}`, {
     type: 'DELETE',
   }).then(function() {
     console.log(`deleted message${id}`);
@@ -43,13 +43,13 @@ $('body').on('click', '.delete', function(event) {
 
 $('body').on('click', '.edit', function(event) {
   event.preventDefault();
-  const id = $(this).data('id');
+  id = $(this).data('id');
   window.location.href = `/edit/${id}`;
 });
 
-$('#update').on('click', function (event) {
+$("#update").on('click', function (event) {
   event.preventDefault();
-
+    
   const newPhone = $('#phone').val().trim();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
@@ -64,9 +64,11 @@ $('#update').on('click', function (event) {
   const dateTime = `${formattedDate} ${formattedTime}`;
   const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
 
+  const messageId = window.location.href.split('edit/')[1];
+
   $.ajax({
-    method: 'POST',
-    url: '/api/getNumber',
+    method: 'PUT',
+    url: '/edit/' +messageId,
     data: {
       phone_number: formattedPhone,
       outgoing_message: newMessage,

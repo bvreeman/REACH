@@ -150,7 +150,7 @@ module.exports = function(app) {
   // PUT route for updating todos. We can get the updated todo from req.body
 
   app.put('/edit/:id', function (req, res) {
-    contacts.udpate({
+    contacts.update({
       contact_name: req.body.contact_name,
       phone_number: req.body.phone_number,
       outgoing_message: req.body.outgoing_message,
@@ -159,7 +159,7 @@ module.exports = function(app) {
     }, {
       where: {
         id: req.params.id,
-      },
+      }
     }).then(function(dbContacts) {
       res.json(dbContacts);
     });
