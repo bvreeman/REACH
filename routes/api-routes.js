@@ -50,49 +50,60 @@ module.exports = function(app) {
 
   // function that puts an ID into outgoingID based on
   // scheduled_send. Goes into /testTwilio/:id below.
-  // function goApp() {
-  //   app.get(`/testTwilio/:${outgoingID}`, function(req, res) {
-  //     contacts.findOne({
-  //       where: {
-  //         id: req.params.id,
-  //       },
-  //     }).then(function(dbContacts) {
-  //     // console.log('\n<---------------------->\n');
-  //     // console.log(dbContacts.dataValues.phone_number);
-  //     // console.log('\n<---------------------->\n');
+  app.get(`/testTwilio/:${outgoingID}`, function(req, res) {
+    contacts.findOne({
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      // console.log('\n<---------------------->\n');
+      // console.log(dbContacts.dataValues.phone_number);
+      // console.log('\n<---------------------->\n');
 
-  //       phoneNumber = dbContacts.dataValues.phone_number;
-  //       outgoingMessage = dbContacts.dataValues.outgoing_message;
+      phoneNumber = dbContacts.dataValues.phone_number;
+      outgoingMessage = dbContacts.dataValues.outgoing_message;
 
-  //       client.messages.create({
-  //         from: trialNumber,
-  //         to: phoneNumber,
-  //         body: outgoingMessage,
-  //       }, function(err, data) {
-  //         if (err) {
-  //           console.log(err);
-  //         } else console.log(data.body);
-  //       });
-  //     });
-  //   });
-  // }
+      client.messages.create({
+        from: trialNumber,
+        to: phoneNumber,
+        body: outgoingMessage,
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+        } else console.log(data.body);
+      });
+    });
+  });
 
   const unsentArray = [];
   const sentArray = [];
 
   app.get('/api/remaining', function(req, res) {
-    contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
-      // console.log(dbContacts);
-      for (let i = 0; i < dbContacts.length; i++) {
-        if (dbContacts[i].dataValues.sent === false) {
-          unsentArray.push(dbContacts);
-          // return res.json(unsentArray);
-        } if (dbContacts[i].dataValues.sent === true) {
-          sentArray.push(dbContacts);
-        }
-      }
-      return res.json(unsentArray);
-    });
+    contacts.findAll({ where: { sent: req.params.sent = false } })
+      .then(function(dbContacts) {
+        return dbContacts;
+      }).then(contacts.findAll({
+        where: {
+          id: req.params.id,
+        },
+        order: [
+          ['scheduled_send'],
+        ],
+      })).then(function(dbContacts) {
+        return res.json(dbContacts);
+      });
+    // dbContacts.findAll(({ order: [['scheduled_send']] }));
+    // .then(function(dbContacts) {
+    // contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
+    // console.log(dbContacts);
+    // for (let i = 0; i < dbContacts.length; i++) {
+    //   if (dbContacts[i].dataValues.sent === false) {
+    //     unsentArray.push(dbContacts);
+    //     // return res.json(unsentArray);
+    //   } else if (dbContacts[i].dataValues.sent === true) {
+    //     sentArray.push(dbContacts);
+    //   }
+    // }
   });
 
   app.get('/testTwilio/:id', function(req, res) {
@@ -146,6 +157,24 @@ module.exports = function(app) {
       dbContacts.sort(function (a, b) {
         return a.scheduled_send - b.scheduled_send;
       });
+    });
+  });
+
+  app.get('/send/:id', function(req, res) {
+    contacts.update(
+      {
+        sent: true,
+      },
+      {
+        where:
+        {
+          id: req.params.id,
+        },
+        returning: true,
+      },
+    ).then(function(result) {
+      return res.json(result);
+      // console.log(result);
     });
   });
 
