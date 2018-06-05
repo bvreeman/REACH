@@ -119,6 +119,41 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/send/:id', function(req, res) {
+    contacts.update(
+      {
+        sent: true
+      }, 
+      { 
+        where: 
+        {
+          id: req.params.id
+        }, 
+        returning: true
+      }
+    ).then(function(result) {
+      return res.json(result);
+      console.log(result);
+    })
+  });
+
+  app.get('/sort', function(req, res) {
+    contacts.findAll(
+      {
+        where: 
+          {
+            sent: false
+          },
+        order: 
+          [
+            ['scheduled_send', 'ASC']
+          ]
+    }).then(function(result) {
+      return res.json(result);
+      console.log(result);
+    })
+  });
+
   // POST route for saving a new contact
   app.post('/api/getNumber', function(req, res) {
     contacts.create({
