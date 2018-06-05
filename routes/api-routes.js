@@ -60,7 +60,8 @@ module.exports = function(app) {
       }, function(err, data) {
         if (err) {
           console.log(err);
-        } else console.log(data.body);
+        } else console.log(data.body); {
+        }
       });
     });
   });
@@ -68,6 +69,24 @@ module.exports = function(app) {
   app.get('/api/getNumber', function(req, res) {
     contacts.findAll({}).then(function(dbContacts) {
       return res.json(dbContacts);
+    });
+  });
+
+  app.get('/send/:id', function(req, res) {
+    contacts.update(
+      {
+        sent: true,
+      },
+      {
+        where:
+        {
+          id: req.params.id,
+        },
+        returning: true,
+      },
+    ).then(function(result) {
+      return res.json(result);
+      console.log(result);
     });
   });
 
@@ -85,12 +104,32 @@ module.exports = function(app) {
       // scheduled_date: req.body.scheduled_date,
       // scheduled_time: req.body.scheduled_time,
       scheduled_send: req.body.scheduled_send,
-      sent: req.body.sent,
     }).then(function(dbContacts) {
       // We have access to the new coontact as an argument inside of the callback function
       res.json(dbContacts);
     });
   });
+
+  app.get('/api/remaining', function(req, res) {
+    console.log(req);
+    contacts.findAll({ limit: 1, order: [['scheduled_send']], where: { sent: req.params.sent = false } }).then(function(dbContacts) {
+      return res.json(dbContacts);
+    });
+  });
+  // app.get('/api/remaining', function(req, res) {
+  //   contacts.findAll({ where: { sent: req.params.sent = false } }).then(function(dbContacts) {
+  //     // console.log(dbContacts);
+  //     // for (let i = 0; i < dbContacts.length; i++) {
+  //     //   if (dbContacts[i].dataValues.sent === false) {
+  //     //     unsentArray.push(dbContacts);
+  //     //     // return res.json(unsentArray);
+  //     //   } else if (dbContacts[i].dataValues.sent === true) {
+  //     //     sentArray.push(dbContacts);
+  //     //   }
+  //     // }
+  //     return res.json(dbContacts);
+  //   });
+  // });
 
   // // DELETE route for deleting todos. We can get the id of the todo we want to delete from
 
