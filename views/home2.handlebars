@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col s4 m3">
                                     <label>Year</label>
-                                    <select id="selectedYear" class="browser-default dateInputs">
+                                    <select id="selectedYear" class="browser-default dateInputs select-text">
                                         <option disabled value="" id="defaultYear" selected>YYYY</option>
                                         {{!-- jQuery year options append here --}}
                                     </select>
@@ -93,11 +93,21 @@
                             </div>
                             <div class="row">
                                 <div class="col s12 m3">
-                                    <button class="right-align btn-large waves-effect waves-light pink darken-1" id="submit" type="submit" name="action">Save</button>
+                                    <button class="right-align btn-large waves-effect waves-light pink darken-1 modal-trigger" id="submit" type="submit" name="action" data-target="confirmModal">Save</button>
                                 </div>
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <h4><i class="fas fa-check-circle"></i> Message Saved!</h4>
+                    <p>Would you like to write a new message or view your saved messages in your pending outbox?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/" class="modal-close waves-effect waves-green btn-flat">Compose New Message</a>
+                    <a href="/outbox" class="modal-close waves-effect waves-green btn-flat">Pending Outbox</a>
                 </div>
             </div>
         </main>
@@ -110,6 +120,7 @@
 <!-- Materialize Compiled and minified JavaScript -->
 {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script> --}}
 <script src="/assets/js/materializeWithEdits.js"></script>
+<script src="/assets/js/materializeElemsActivate.js"></script>
 <script src="/assets/js/dateTimePickers2.js"></script>
 {{!-- <script src="/assets/js/formValidation.js"></script> --}}
 <script src="/assets/js/view.js" type= "text/javascript"></script>
