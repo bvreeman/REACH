@@ -13,7 +13,7 @@ $('#submit').on('click', function (event) {
   const newTime = `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`;
   const formattedTime = moment(newTime, ['hh:mm A']).format('HH:mm');
   const dateTime = `${formattedDate} ${formattedTime}`;
-  const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
+  const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD hh:mm A');
 
   $.ajax({
     method: 'POST',
@@ -64,9 +64,11 @@ $('#update').on('click', function (event) {
   const dateTime = `${formattedDate} ${formattedTime}`;
   const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
 
+  const messageId = window.location.href.split('edit/')[1];
+
   $.ajax({
-    method: 'POST',
-    url: '/api/getNumber',
+    method: 'PUT',
+    url: '/edit/' +messageId,
     data: {
       phone_number: formattedPhone,
       outgoing_message: newMessage,
