@@ -79,19 +79,17 @@ module.exports = function(app) {
   const sentArray = [];
 
   app.get('/api/remaining', function(req, res) {
-    contacts.findAll({ where: { sent: req.params.sent = false } })
-      .then(function(dbContacts) {
-        return dbContacts;
-      }).then(contacts.findAll({
-        where: {
-          id: req.params.id,
+    contacts.findAll({
+      where:
+        {
+          sent: false,
         },
-        order: [
-          ['scheduled_send'],
-        ],
-      })).then(function(dbContacts) {
-        return res.json(dbContacts);
-      });
+      order: [
+        ['scheduled_send', 'ASC'],
+      ],
+    }).then(function(dbContacts) {
+      return res.json(dbContacts);
+    });
     // dbContacts.findAll(({ order: [['scheduled_send']] }));
     // .then(function(dbContacts) {
     // contacts.findAll({ limit: 1, order: [['scheduled_send']] }).then(function(dbContacts) {
