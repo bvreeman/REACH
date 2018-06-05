@@ -249,49 +249,47 @@ function updateDomTimeSelection(hour, minute, ampm) {
 
 
 $(document).ready(function() {
-  // Calls function to populate dropdown menu values
-  firstFormLoading();
-  // Activates side navbar to launch in mobile view
-  $('.sidenav').sidenav();
-  // Prevents datpicker and timepicker buttons from reloading page
-  $('.formBtn').on('click', function(event) {
-    event.preventDefault();
-  });
+    // Calls function to populate dropdown menu values
+    firstFormLoading();
+    // Prevents datpicker and timepicker buttons from reloading page
+    $('.formBtn').on('click', function(event) {
+        event.preventDefault();
+    });
 
-  // Event listener that reloads day dropdown options depending on the month selected
-  $('#selectedMonth').change(function() {
-    monthVal = $('#selectedMonth').val();
-    yearVal = $('#selectedYear').val();
-    const booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
-    const numberOfDays = determineNumberOfDays(monthVal, yearVal, booleanCurrentMonthAndYear);
-    loadDays(numberOfDays, booleanCurrentMonthAndYear);
-  });
+    // Event listener that reloads day dropdown options depending on the month selected
+    $('#selectedMonth').change(function() {
+        monthVal = $('#selectedMonth').val();
+        yearVal = $('#selectedYear').val();
+        const booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
+        const numberOfDays = determineNumberOfDays(monthVal, yearVal, booleanCurrentMonthAndYear);
+        loadDays(numberOfDays, booleanCurrentMonthAndYear);
+    });
 
-  // Event listener that reloads month dropdown options depending on the year selected
-  // Concept: If the current year is selected, only the months left in the year should be displayed
-  // Also takes into account reloading day dropdown options in leap year special cases
-  $('#selectedYear').change(function() {
-    monthVal = $('#selectedMonth').val();
-    yearVal = $('#selectedYear').val();
-    const booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
-    const isCurrentYearBoolean = yearVal === currentDate.year;
-    loadDays(determineNumberOfDays(monthVal, yearVal, booleanCurrentMonthAndYear), booleanCurrentMonthAndYear);
-    loadMonths(isCurrentYearBoolean);
-  });
+    // Event listener that reloads month dropdown options depending on the year selected
+    // Concept: If the current year is selected, only the months left in the year should be displayed
+    // Also takes into account reloading day dropdown options in leap year special cases
+    $('#selectedYear').change(function() {
+        monthVal = $('#selectedMonth').val();
+        yearVal = $('#selectedYear').val();
+        const booleanCurrentMonthAndYear = isCurrentYearAndMonth(monthVal, yearVal);
+        const isCurrentYearBoolean = yearVal === currentDate.year;
+        loadDays(determineNumberOfDays(monthVal, yearVal, booleanCurrentMonthAndYear), booleanCurrentMonthAndYear);
+        loadMonths(isCurrentYearBoolean);
+    });
 
-  // Empties date dropdown placeholders and selects values for current date
-  $('#defaultMonth').empty();
-  $('#defaultDay').empty();
-  $('#defaultYear').empty();
-  $(`#selectedMonth option:contains(${currentDate.month})`).prop({ selected: true });
-  $(`#selectedDay option:contains(${currentDate.day})`).prop({ selected: true });
-  $(`#selectedYear option:contains(${currentDate.year})`).prop({ selected: true });
+    // Empties date dropdown placeholders and selects values for current date
+    $('#defaultMonth').empty();
+    $('#defaultDay').empty();
+    $('#defaultYear').empty();
+    $(`#selectedMonth option:contains(${currentDate.month})`).prop({ selected: true });
+    $(`#selectedDay option:contains(${currentDate.day})`).prop({ selected: true });
+    $(`#selectedYear option:contains(${currentDate.year})`).prop({ selected: true });
 
-  // TIMEPICKER
+    // TIMEPICKER
 
 
     $('.timeInputs').change(function() {
-        let formSelectedTime = {
+        const formSelectedTime = {
         hour: $('#selectedHour').val(),
         minute: $('#selectedMinute').val(),
         ampm: $('#selectedAMPM').val(),
@@ -309,96 +307,95 @@ $(document).ready(function() {
     const timePickInstances = M.Timepicker.init(timePickElems, {
         autoClose: true,
         onSelect: function(time) {
-            const timeAndAMPMArray = time.split(" ");
-            const hoursAndMinutesArray = timeAndAMPMArray[0].split(":");
-            formattedPickerSelectedTime = {
-                selectedHour: hoursAndMinutesArray[0],
-                selectedMinute: hoursAndMinutesArray[1],
-                selectedAMPM: timeAndAMPMArray[1]
-            };
-            
+        const timeAndAMPMArray = time.split(' ');
+        const hoursAndMinutesArray = timeAndAMPMArray[0].split(':');
+        formattedPickerSelectedTime = {
+            selectedHour: hoursAndMinutesArray[0],
+            selectedMinute: hoursAndMinutesArray[1],
+            selectedAMPM: timeAndAMPMArray[1],
+        };
         },
         onClose: function() {
-            $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
-            $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
-            $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
-            timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
-        }
+        $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
+        $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
+        $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
+        timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
+        },
     });
-    // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
+        // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
     const timePickInstance = timePickInstances[0];
 
 
-  // END OF TIMEPICKER SECTION
+    // END OF TIMEPICKER SECTION
 
-  // DATEPICKER
+    // DATEPICKER
 
-  // Holder variable for datepicker modal
-  let formattedDay;
-  let formattedMonth;
-  let formattedPickerSelectedDate;
-//   let formSelectedDate = {
-//     day: $('#selectedDay').val(),
-//     month: $('#selectedMonth').val(),
-//     year: $('#selectedYear').val(),
-//   };
+    // Holder variable for datepicker modal
+    let formattedDay;
+    let formattedMonth;
+    let formattedPickerSelectedDate;
+    //   let formSelectedDate = {
+    //     day: $('#selectedDay').val(),
+    //     month: $('#selectedMonth').val(),
+    //     year: $('#selectedYear').val(),
+    //   };
 
-  // Event listener when a date option is selected via dropdown menu, the datepicker is synced with the new date
-  $('.dateInputs').change(function() {
-    let formSelectedDate = {
-      day: $('#selectedDay').val(),
-      month: $('#selectedMonth').val(),
-      year: $('#selectedYear').val(),
-    };
-    datePickInstance.setDate(new Date(moment(`${formSelectedDate.year},${formSelectedDate.month},${formSelectedDate.day}`, ['YYYY,MM,DD'])));
-  });
+    // Event listener when a date option is selected via dropdown menu, the datepicker is synced with the new date
+    $('.dateInputs').change(function() {
+        const formSelectedDate = {
+        day: $('#selectedDay').val(),
+        month: $('#selectedMonth').val(),
+        year: $('#selectedYear').val(),
+        };
+        datePickInstance.setDate(new Date(moment(`${formSelectedDate.year},${formSelectedDate.month},${formSelectedDate.day}`, ['YYYY,MM,DD'])));
+    });
 
 
-  // Variable for all datePicker elements in the DOM
-  const datePickElems = document.querySelectorAll('#datePicker');
-  // Initializing formatting and options for datePicker modals
-  const datePickInstances = M.Datepicker.init(datePickElems, {
-    format: 'mmm dd, yyyy',
-    minDate: new Date(moment().format('YYYY,M,D')),
-    yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
-    // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
-    onSelect: function(date) {
-      const pickerSelectedDate = new Date(date);
-      if (pickerSelectedDate.getDate() < 10) {
-        formattedDay = `0${String(pickerSelectedDate.getDate())}`;
-      } else {
-        formattedDay = String(pickerSelectedDate.getDate());
-      }
-      if (pickerSelectedDate.getMonth() + 1 < 10) {
-        formattedMonth = `0${String(pickerSelectedDate.getMonth() + 1)}`;
-      } else {
-        formattedMonth = String(pickerSelectedDate.getMonth() + 1);
-      }
-      formattedPickerSelectedDate = {
-        selectedDay: formattedDay,
-        selectedMonth: formattedMonth,
-        selectedYear: String(pickerSelectedDate.getFullYear()),
-      };
-      datePickInstance.close();
-    },
-    // onClose method for reloading dropdown menus and their respective selected options when the datepicker closes
-    onClose: function() {
-      if (formattedPickerSelectedDate.selectedYear === currentDate.year) {
-        loadMonths(true);
-      } else {
-        loadMonths(false);
-      }
-      const booleanCurrentMonthAndYear = isCurrentYearAndMonth(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear);
-      const numberOfDays = determineNumberOfDays(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear, booleanCurrentMonthAndYear);
-      loadDays(numberOfDays, booleanCurrentMonthAndYear);
-      $(`#selectedMonth option:contains(${formattedPickerSelectedDate.selectedMonth})`).prop({ selected: true });
-      $(`#selectedDay option:contains(${formattedPickerSelectedDate.selectedDay})`).prop({ selected: true });
-      $(`#selectedYear option:contains(${formattedPickerSelectedDate.selectedYear})`).prop({ selected: true });
-    },
-  });
+    // Variable for all datePicker elements in the DOM
+    const datePickElems = document.querySelectorAll('#datePicker');
+    // Initializing formatting and options for datePicker modals
+    const datePickInstances = M.Datepicker.init(datePickElems, {
+        format: 'mmm dd, yyyy',
+        minDate: new Date(moment().format('YYYY,M,D')),
+        yearRange: [parseInt(currentDate.year), parseInt(currentDate.year) + 10],
+        // onSelect method for updating the DOM date input field with the selected date and autoClosing the modal when the date is selected
+        onSelect: function(date) {
+        const pickerSelectedDate = new Date(date);
+        if (pickerSelectedDate.getDate() < 10) {
+            formattedDay = `0${String(pickerSelectedDate.getDate())}`;
+        } else {
+            formattedDay = String(pickerSelectedDate.getDate());
+        }
+        if (pickerSelectedDate.getMonth() + 1 < 10) {
+            formattedMonth = `0${String(pickerSelectedDate.getMonth() + 1)}`;
+        } else {
+            formattedMonth = String(pickerSelectedDate.getMonth() + 1);
+        }
+        formattedPickerSelectedDate = {
+            selectedDay: formattedDay,
+            selectedMonth: formattedMonth,
+            selectedYear: String(pickerSelectedDate.getFullYear()),
+        };
+        datePickInstance.close();
+        },
+        // onClose method for reloading dropdown menus and their respective selected options when the datepicker closes
+        onClose: function() {
+        if (formattedPickerSelectedDate.selectedYear === currentDate.year) {
+            loadMonths(true);
+        } else {
+            loadMonths(false);
+        }
+        const booleanCurrentMonthAndYear = isCurrentYearAndMonth(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear);
+        const numberOfDays = determineNumberOfDays(formattedPickerSelectedDate.selectedMonth, formattedPickerSelectedDate.selectedYear, booleanCurrentMonthAndYear);
+        loadDays(numberOfDays, booleanCurrentMonthAndYear);
+        $(`#selectedMonth option:contains(${formattedPickerSelectedDate.selectedMonth})`).prop({ selected: true });
+        $(`#selectedDay option:contains(${formattedPickerSelectedDate.selectedDay})`).prop({ selected: true });
+        $(`#selectedYear option:contains(${formattedPickerSelectedDate.selectedYear})`).prop({ selected: true });
+        },
+    });
 
-  // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
-  const datePickInstance = datePickInstances[0];
+    // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance
+    const datePickInstance = datePickInstances[0];
 
-  // END OF DATEPICKER SECTION
+    // END OF DATEPICKER SECTION
 });
