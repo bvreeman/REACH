@@ -16,11 +16,7 @@
     const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
 
     const messageId = window.location.href.split('edit/')[1];
-    console.log(messageId);
-    console.log(formattedPhone);
-    console.log(newMessage);
-    console.log(formattedDateTime)
-  
+
     $.ajax({
       method: 'PUT',
       url: '/edit/' +messageId,
