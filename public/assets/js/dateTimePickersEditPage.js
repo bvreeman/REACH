@@ -262,8 +262,6 @@ function updateDomTimeSelection(hour, minute, ampm) {
 $(document).ready(function() {
   // Calls function to populate dropdown menu values
   firstFormLoading();
-  // Activates side navbar to launch in mobile view
-  $('.sidenav').sidenav();
   // Prevents datpicker and timepicker buttons from reloading page
   $('.formBtn').on('click', function(event) {
     event.preventDefault();
