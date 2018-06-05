@@ -160,6 +160,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id,
       },
+      returning: true
     }).then(function(dbContacts) {
       res.json(dbContacts);
     });
