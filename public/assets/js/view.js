@@ -1,6 +1,11 @@
+
+
+  var messageID;
+
 $('#submit').on('click', function (event) {
   event.preventDefault();
 
+  const updating = false;
   const newPhone = $('#phone').val().trim();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
@@ -43,13 +48,13 @@ $('body').on('click', '.delete', function(event) {
 
 $('body').on('click', '.edit', function(event) {
   event.preventDefault();
-  const id = $(this).data('id');
-  window.location.href = `/edit/${id}`;
+  messageID = $(this).data('id');
+  window.location.href = `/edit/${messageID}`;
 });
 
-$('#update').on('click', function (event) {
+$("#update").on('click', function (event) {
   event.preventDefault();
-
+    
   const newPhone = $('#phone').val().trim();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
@@ -65,8 +70,8 @@ $('#update').on('click', function (event) {
   const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
 
   $.ajax({
-    method: 'POST',
-    url: '/api/getNumber',
+    method: 'PUT',
+    url: '/edit/' +messageID,
     data: {
       phone_number: formattedPhone,
       outgoing_message: newMessage,
