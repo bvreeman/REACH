@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const connection;
 
-if (process.env.JAWSDB_URL) {
-  connection = mysql.createConnection(process.env.JAWSDB_URL);
+if (config.use_env_variable) {
+  const sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
 
 const sequelize = new Sequelize('contacts_db', 'root', '', {
