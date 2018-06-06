@@ -9306,11 +9306,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleInputClick",
       value: function _handleInputClick() {
-        // Majid addition of dummyEl and && conditional
-        let dummyEl = document.getElementById('datePicker');
-        if (document.activeElement === dummyEl) {
           this.open();
-        }
       }
     }, {
       key: "_handleInputKeydown",

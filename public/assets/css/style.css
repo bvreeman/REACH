@@ -42,3 +42,6 @@ textarea.materialize-textarea {
 .table-responsive-vertical {
   margin: .5rem 0 1rem 0;
 }
+.sortOutboxToggle {
+  padding-top: 1rem;
+}

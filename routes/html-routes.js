@@ -30,6 +30,12 @@ router.get('/outbox', function(req, res) {
   });
 });
 
+router.get('/outbox/sort/outgoing-order', function(req, res) {
+  contacts.findAll({order:[['scheduled_send', 'ASC']]}).then(function(dbContacts) {
+    return res.render('outbox', { dbContacts: dbContacts });
+  });
+});
+
 router.get('/edit/:id', function(req, res) {
   contacts.findAll({ where: { id: req.params.id } }).then(function(dbContacts) {
     // console.log(dbContacts, dbContacts[0].dataValues.id);

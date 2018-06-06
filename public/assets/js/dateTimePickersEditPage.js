@@ -267,6 +267,18 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
+  // Makes sure pressing Enter on any dropdowns doesn't execute the form submission
+  $('.timeInputs').keypress(function(e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+    }
+  });
+  $('.dateInputs').keypress(function(e) {
+      if (e.keyCode == 13) {
+          e.preventDefault();
+      }
+  });
+
   // Event listener that reloads day dropdown options depending on the month selected
   $('#selectedMonth').change(function() {
     monthVal = $('#selectedMonth').val();
