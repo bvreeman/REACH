@@ -13,7 +13,7 @@ const moment = require('moment');
 // const sequelize = new Sequelize('database', 'username', 'password');
 
 
-const m = moment();
+let currentTime;
 
 // console.log('\n<------------------------------>\n');
 // console.log(db.contacts);
@@ -46,34 +46,7 @@ module.exports = function(app) {
   });
   let phoneNumber;
   let outgoingMessage;
-  let outgoingID;
 
-  // function that puts an ID into outgoingID based on
-  // scheduled_send. Goes into /testTwilio/:id below.
-  app.get(`/testTwilio/:${outgoingID}`, function(req, res) {
-    contacts.findOne({
-      where: {
-        id: req.params.id,
-      },
-    }).then(function(dbContacts) {
-      // console.log('\n<---------------------->\n');
-      // console.log(dbContacts.dataValues.phone_number);
-      // console.log('\n<---------------------->\n');
-
-      phoneNumber = dbContacts.dataValues.phone_number;
-      outgoingMessage = dbContacts.dataValues.outgoing_message;
-
-      client.messages.create({
-        from: trialNumber,
-        to: phoneNumber,
-        body: outgoingMessage,
-      }, function(err, data) {
-        if (err) {
-          console.log(err);
-        } else console.log(data.body);
-      });
-    });
-  });
 
   const unsentArray = [];
   const sentArray = [];
@@ -113,13 +86,14 @@ module.exports = function(app) {
   //     myFunction()}, 30000)
 
   app.get('/testingTime', function(req, res) {
+    currentTime = moment().format('YYYY-MM-DD hh:mm A');
     contacts.findAll({}).then(function(dbContacts) {
       // console.log(dbContacts);
-      if (dbContacts[0].dataValues.scheduled_send != m) {
-        console.log(m);
+      if (dbContacts[0].dataValues.scheduled_send != currentTime) {
+        console.log(currentTime);
         console.log('yeehaw!!!');
       } else {
-        console.log(m);
+        console.log(currentTime);
         console.log('try again!');
       }
     });
@@ -127,6 +101,7 @@ module.exports = function(app) {
 
   app.get('/api/remaining', function(req, res) {
     function twilioGo() {
+      currentTime = moment().format('YYYY-MM-DD hh:mm A');
       console.log('it is running');
       contacts.findAll({
         where:
@@ -137,10 +112,16 @@ module.exports = function(app) {
           ['scheduled_send', 'ASC'],
         ],
       }).then(function(dbContacts) {
-        if (dbContacts[0].scheduled_send == m) {
+        // for (let i = 0; i < dbContacts.length; i++) {
+        if (dbContacts[0].scheduled_send == currentTime) {
+          // console.log('\n<-------------------------------->\n');
+          // console.log(dbContacts[0].scheduled_send, currentTime, dbContacts[0].scheduled_send == currentTime);
+          // console.log('\n<-------------------------------->\n');
           phoneNumber = dbContacts[0].phone_number;
           outgoingMessage = dbContacts[0].outgoing_message;
-
+          // console.log('\n<-------------------------------->\n');
+          // console.log(`LOOK HERE!!!! ${phoneNumber} ${outgoingMessage}`);
+          // console.log('\n<-------------------------------->\n');
           client.messages.create({
             from: trialNumber,
             to: phoneNumber,
@@ -148,34 +129,85 @@ module.exports = function(app) {
           }, function(err, data) {
             if (err) {
               console.log(err);
-            } else console.log(data.body);
+              return (dbContacts);
+            }
+            console.log(`CHECK OUT THIS DATA ${data.body}`);
+            contacts.update(
+              {
+                sent: true,
+              },
+              {
+                where:
+                    {
+                      id: dbContacts[0].dataValues.id,
+                    },
+                returning: true,
+              },
+            ).then(function(result) {
+              return (result);
+              // console.log(result);
+            });
+            return (dbContacts);
           });
         }
         return (dbContacts);
-      }).then(function(dbContacts) {
-        contacts.update(
-          {
-            sent: true,
-          },
-          {
-            where:
-          {
-            id: dbContacts[0].dataValues.id,
-          },
-            returning: true,
-          },
-        ).then(function(result) {
-          return res.json(result);
-          // console.log(result);
-        });
       });
+      setInterval(function() {
+        twilioGo();
+      }, 60000);
     }
     twilioGo();
-
-    setInterval(function() {
-      twilioGo();
-    }, 60000);
   });
+
+
+  // app.get('/api/remaining', function(req, res) {
+  //   function twilioGo() {
+  //     console.log('it is running');
+  //     contacts.findAll({
+  //       where:
+  //       {
+  //         sent: false,
+  //       },
+  //       order: [
+  //         ['scheduled_send', 'ASC'],
+  //       ],
+  //     }).then(function(dbContacts) {
+  //       phoneNumber = dbContacts[0].phone_number;
+  //       outgoingMessage = dbContacts[0].outgoing_message;
+  //       client.messages.create({
+  //         from: realNumber,
+  //         to: phoneNumber,
+  //         body: outgoingMessage,
+  //       }, function(err, data) {
+  //         if (err) {
+  //           console.log(err);
+  //         } else console.log(data.body);
+  //       });
+  //       return (dbContacts);
+  //     }).then(function(dbContacts) {
+  //       contacts.update(
+  //         {
+  //           sent: true,
+  //         },
+  //         {
+  //           where:
+  //         {
+  //           id: dbContacts[0].dataValues.id,
+  //         },
+  //           returning: true,
+  //         },
+  //       ).then(function(result) {
+  //         // return res.json(result);
+  //         // console.log(result);
+  //       });
+  //     });
+  //   }
+  //   twilioGo();
+
+  //   setInterval(function() {
+  //     twilioGo();
+  //   }, 60000);
+  // });
 
 
   app.get('/testTwilio/:id', function(req, res) {
@@ -296,3 +328,31 @@ module.exports = function(app) {
     });
   });
 };
+
+
+// function that puts an ID into outgoingID based on
+// scheduled_send. Goes into /testTwilio/:id below.
+// app.get(`/testTwilio/:${outgoingID}`, function(req, res) {
+//   contacts.findOne({
+//     where: {
+//       id: req.params.id,
+//     },
+//   }).then(function(dbContacts) {
+//     // console.log('\n<---------------------->\n');
+//     // console.log(dbContacts.dataValues.phone_number);
+//     // console.log('\n<---------------------->\n');
+
+//     phoneNumber = dbContacts.dataValues.phone_number;
+//     outgoingMessage = dbContacts.dataValues.outgoing_message;
+
+//     client.messages.create({
+//       from: trialNumber,
+//       to: phoneNumber,
+//       body: outgoingMessage,
+//     }, function(err, data) {
+//       if (err) {
+//         console.log(err);
+//       } else console.log(data.body);
+//     });
+//   });
+// })
