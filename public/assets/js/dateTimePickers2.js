@@ -241,9 +241,10 @@ function loadAMPM(booleanCurrentDayAndAM) {
 // Function selects the time options in each drop drown menu after each reload
 // This keeps selected values consistent as dropdown options dynamically change
 function updateDomTimeSelection(hour, minute, ampm) {
-  $(`#selectedMinute option:contains(${minute})`).prop({ selected: true });
-  $(`#selectedHour option:contains(${hour})`).prop({ selected: true });
-  $(`#selectedAMPM option:contains(${ampm})`).prop({ selected: true });
+  $(`#selectedMinute option:contains(${moment(`${hour}:${minute} ${ampm}`, ['hh:mm A']).add(5, 'm').format('mm')})`).prop({ selected: true });
+  $(`#selectedHour option:contains(${moment(`${hour}:${minute} ${ampm}`, ['hh:mm A']).add(5, 'm').format('hh')})`).prop({ selected: true });
+  $(`#selectedAMPM option:contains(${moment(`${hour}:${minute} ${ampm}`, ['hh:mm A']).add(5, 'm').format('A')})`).prop({ selected: true });
+  // timePickInstance.options.defaultTime = `${moment(`${hour}:${minute} ${ampm}`, ['hh:mm A']).add(5, 'm').format('hh')}`;
 }
 // END OF updateDomTimeSelection() FUNCTION
 
@@ -254,6 +255,18 @@ $(document).ready(function() {
     // Prevents datpicker and timepicker buttons from reloading page
     $('.formBtn').on('click', function(event) {
         event.preventDefault();
+    });
+
+    // Makes sure pressing Enter on any dropdowns doesn't execute the form submission
+    $('.timeInputs').keypress(function(e) {
+      if (e.keyCode == 13) {
+          e.preventDefault();
+      }
+    });
+    $('.dateInputs').keypress(function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
     });
 
     // Event listener that reloads day dropdown options depending on the month selected
@@ -306,6 +319,7 @@ $(document).ready(function() {
     // Initializing formatting and options for timePicker modals
     const timePickInstances = M.Timepicker.init(timePickElems, {
         autoClose: true,
+        defaultTime: `${moment().add(5, 'm').format('hh:mm A')}`,
         onSelect: function(time) {
         const timeAndAMPMArray = time.split(' ');
         const hoursAndMinutesArray = timeAndAMPMArray[0].split(':');
@@ -316,10 +330,10 @@ $(document).ready(function() {
         };
         },
         onClose: function() {
-        $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
-        $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
-        $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
-        timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
+          $(`#selectedHour option:contains(${formattedPickerSelectedTime.selectedHour})`).prop({ selected: true });
+          $(`#selectedMinute option:contains(${formattedPickerSelectedTime.selectedMinute})`).prop({ selected: true });
+          $(`#selectedAMPM option:contains(${formattedPickerSelectedTime.selectedAMPM})`).prop({ selected: true });
+          timePickInstance._updateTimeFromInput(`${formattedPickerSelectedTime.selectedHour}:${formattedPickerSelectedTime.selectedMinute} ${formattedPickerSelectedTime.selectedAMPM}`);
         },
     });
         // We currently only have one datepicker input on our home page, therefore we are only concerned with the first instance

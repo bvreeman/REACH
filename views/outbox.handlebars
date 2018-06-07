@@ -3,11 +3,23 @@
     <div class="container">
         <main>
             <div class="row">
+                <div class="sortOutboxToggle">
+                    <div class="switch">
+                        Sort by:  
+                        <label>
+                        Order Created
+                        <input id='sortCheckbox' type="checkbox">
+                        <span class="lever"></span>
+                        Outgoing Date
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="table-responsive-vertical shadow-z-1">
                     <table id="table" class="table table-hover table-mc-light-blue">
                         <thead>
                             <tr>
-                                <th data-title="Last Updated">Last Updated</th>
                                 <th data-title="Outgoing Date/Time">Outgoing Date/Time</th>
                                 <th data-title="Message Body">Message Body</th>
                                 <th data-title="Contacts">Contacts</th>
@@ -18,7 +30,6 @@
                         <tbody>
                             {{#each dbContacts}}
                             <tr>
-                                <td data-title="Last Updated"></td>
                                 <td data-title="Outgoing Date/Time">{{scheduled_send}}</td>
                                 <td data-title="Message Body">{{outgoing_message}}</td>
                                 <td data-title="Contacts">{{phone_number}}</td>
@@ -51,3 +62,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="/assets/js/materializeElemsActivate.js"></script>
 <script src="/assets/js/view.js" type= "text/javascript"></script>
+<script src="/assets/js/outbox.js" type= "text/javascript"></script>
