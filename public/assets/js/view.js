@@ -131,9 +131,11 @@ $('#update').on('click', function (event) {
   const newDate = `${$('#selectedMonth').val()} ${$('#selectedDay').val()}, ${$('#selectedYear').val()}`;
   const formattedDate = moment(newDate, ['MM DD, YYYY']).format('YYYY-MM-DD');
   const newTime = `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`;
-  const formattedTime = moment(newTime, ['hh:mm A']).format('HH:mm');
-  const dateTime = `${formattedDate} ${formattedTime}`;
-  const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD HH:mm');
+  // const formattedTime = moment(newTime, ['hh:mm A']).format('HH:mm');
+  const formattedTime = newTime;
+  const dateTime = `${formattedDate} ${newTime}`;
+  // const formattedDateTime = moment(dateTime, ['YYYY-MM-DD HH:mm']).format('YYYY-MM-DD hh:mm A');
+  const formattedDateTime = dateTime;
 
   const messageId = window.location.href.split('edit/')[1];
 
