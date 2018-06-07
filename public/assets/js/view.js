@@ -15,9 +15,9 @@ function checkTime() {
 function isFormValid() {
   $('#errorDiv').empty();
   // phone number input validation and initial formatting
-  let errorsInMapArray = [];
-  let phoneFormInput = $('#phone').val().trim().replace(/[- )(]|/g, '');
-  let allPhoneNumbersArray = phoneFormInput.split(',');
+  const errorsInMapArray = [];
+  const phoneFormInput = $('#phone').val().trim().replace(/[- )(]|/g, '');
+  const allPhoneNumbersArray = phoneFormInput.split(',');
   allPhoneNumbersArray.map(function(elem) {
     if (isNaN(elem) || !(elem.toString().length === 10)) {
       errorsInMapArray.push(true);
@@ -28,25 +28,25 @@ function isFormValid() {
   if (errorsInMapArray[0]) {
     $('#errorDiv').text('Please provide a valid 10-digit US phone number.');
     return false;
-  };
+  }
 
   // message body input validation
   if ($('#message').val().trim() === '') {
     $('#errorDiv').text('Please provide a message body.');
     return false;
-  }; 
+  }
 
   // date inputs validation
   if ($('#selectedYear').val() === null || $('#selectedMonth').val() === null || $('#selectedDay').val() === null) {
     $('#errorDiv').text('Please select an option for all date and time values below.');
     return false;
-  };
+  }
 
   // time inputs validation
   if ($('#selectedHour').val() === null || $('#selectedMinute').val() === null || $('#selectedAMPM').val() === null) {
     $('#errorDiv').text('Please select an option for all date and time values below.');
     return false;
-  };
+  }
 
 
   const newDate = `${$('#selectedMonth').val()} ${$('#selectedDay').val()}, ${$('#selectedYear').val()}`;
@@ -66,7 +66,7 @@ $('#submit').on('click', function (event) {
 
   if (!(isFormValid())) {
     return false;
-  };
+  }
 
   const newPhone = formatPhoneNumber();
   const newMessage = $('#message').val().trim();
@@ -115,13 +115,12 @@ $('body').on('click', '.edit', function(event) {
   window.location.href = `/edit/${id}`;
 });
 
-$("#update").on('click', function (event) {
+$('#update').on('click', function (event) {
   event.preventDefault();
 
   if (!(isFormValid())) {
     return false;
-  };
-    
+  }
   const newPhone = formatPhoneNumber();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
@@ -140,7 +139,7 @@ $("#update").on('click', function (event) {
 
   $.ajax({
     method: 'PUT',
-    url: '/edit/' +messageId,
+    url: `/edit/${messageId}`,
     data: {
       phone_number: formattedPhone,
       outgoing_message: newMessage,

@@ -1,71 +1,46 @@
-# Group 2 Project
 
-### App Title: 
-### Reach
+<img src = "./public/assets/img/Banner.png">
 
-### Description of Project: 
-Messaging service that allows personal users, small and mid-size businesses to text information to users based on their specifications.
+## Hosted on Heroku <a href="https://arcane-bastion-12475.herokuapp.com/">Here
 
-### Link: <a href="https://github.com/bvreeman/group-2-project/projects">Project Page</a>
-### Link: <a href="https://app.xtensio.com/folio/s5ls38nj">Persona</a>
+<br>
 
-### Features:
-Each company/user can send emails to an individual or a group.
-Personalized database of contacts
-Add and delete users from database per company/individual
-Scheduling of text messages date/time
-Delete scheduled messages before scheduled time.
-Stretch: Templates for users
-    Apointment reminders
-    Weekly updates / short info blast / coupon code
-    Personal reminder
-    Custom template defined by customer
+## Created during week 16 of Trilogy Bootcamp. REACH is an app allowing the user to send a text at a pre-determined time and date of their choice. 
 
-### User Stories:
+ > Made by busy people, for busy people. REACH's clean interface and self-explanatory fields allow entrepenuers and spontaneous customers alike to make the most out of the time we spend on our cell phones
+## <a href="https://app.xtensio.com/folio/s5ls38nj">UX Persona</a>
 
-Manny's Manicotti Food Truck: Small business user who needs to be able to notify customers of weekly locations/events where his truck will be parked. Ability to send coupon codes to increase business during slow periods.
+## Features: 
+1. Validation in the phone number, message, and date/time fields to ensure foolproof texting. 
+2. The ability to view your pending outbox and delete or edit messages at will before sending. 
+3. Send mass-texts to unique numbers, and set the "send date" to any time within the calendar year {mass-text feature pending}
 
-Personal user: Busy individual that wants to schedule text messages/reminders to family members to attend events or pick up groceries/dry cleaning, etc. Ability to schedule "date escape" text to themselves.
+## Reach is a full-stack app incorporating:
 
-Small Business owner such as doctor, hairdresser, etc. to remind customers of scheduled appointments. 
+<img src= "./public/assets/img/logos.png" width="550">
 
-## Tiered Stages:
-
-### Tier 1:
-Send text message to self or others
-
-### Fields:
-* Phone # of sender
-* Phone # of recipient
-* Date to send message
-* Time to send message
-* Message
-
-### Functionality:
-* Add to database
-* Schedule/Send message
-* Delete message	
+## SCREENSHOTS
+<br>
+<img src = "./public/assets/img/Compose.png" width="600">
+<br>
+Choose a date and time
+<img src = "./public/assets/img/DatePicker.png" width="350" height= "200">
+<img src = "./public/assets/img/TimePicker.png" width="350" height= "200">
+<br>
+View your pending outbox
+<img src = "./public/assets/img/Outbox.png" width="600">
+<br>
+Edit pending texts
+<img src = "./public/assets/img/Outbox-Update.png" width="600">
 
 
-### Tier 2:
-* Login process
-* Registration for company or individual
+## Authors
+* ```Brandon Vreeman```
+* ```Majid Jamaleldine```
+* ```Saundra Peterson```
+* ```Thom Romano``` 
+<br>
 
-### Fields:
-* Business Name
-* Address
-* Phone number (company #)
-* Twillio Number (stretch)
-* Email address
-
-### Tier 3:
-* Templates
-* Groups
-* Unsubscribe text messages
-
-## Wireframes
-<img src = "./public/assets/img/wireframe1.png">
-<img src = "./public/assets/img/wireframe2.png">
-
+```Get out there and start texting!``` :iphone:
 
 

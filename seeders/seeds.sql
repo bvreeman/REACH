@@ -1,0 +1,4 @@
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+15072591109', '', 'Hi. Eat at Manacotti Mannies', '2018-06-05 07:30', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+12182134462', '', 'Hi. Eat at Manacotti Mannies', '2018-06-05 07:31', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+19728902221', '', 'Hi. Eat at Manacotti Mannies', '2018-06-05 07:32', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+14257616386', '', 'Hi. Eat at Manacotti Mannies', '2018-06-05 07:31', false);
