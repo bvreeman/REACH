@@ -4,6 +4,13 @@ function formatPhoneNumber() {
   return allPhoneNumbersArray[0];
 }
 
+function checkTime() {
+  let now = moment();
+  let hourToCheck = (now.day() !== 0)?17:15;
+  let dateToCheck = now.hour(hourToCheck).minute(30);
+  
+  return moment().isAfter(dateToCheck);
+}
 
 function isFormValid() {
   $('#errorDiv').empty();
@@ -40,6 +47,15 @@ function isFormValid() {
     $('#errorDiv').text('Please select an option for all date and time values below.');
     return false;
   }
+
+
+  const newDate = `${$('#selectedMonth').val()} ${$('#selectedDay').val()}, ${$('#selectedYear').val()}`;
+  const newTime = `${$('#selectedHour').val()}:${$('#selectedMinute').val()} ${$('#selectedAMPM').val()}`;
+  if (moment(`${newDate} ${newTime}`, ['MM DD, YYYY hh:mm A']).isBefore(moment())) {
+    $('#errorDiv').text('Please select a future date and time to schedule this outgoing message.');
+    return false;
+  }
+
 
   return true;
 }
