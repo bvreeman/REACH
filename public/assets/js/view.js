@@ -33,7 +33,7 @@ $('#submit').on('click', function (event) {
 $('body').on('click', '.delete', function(event) {
   const id = $(this).data('id');
   console.log('it works!');
-  $.ajax(`/outbox/=${id}`, {
+  $.ajax(`/outbox/${id}`, {
     type: 'DELETE',
   }).then(function() {
     console.log(`deleted message${id}`);
@@ -47,9 +47,9 @@ $('body').on('click', '.edit', function(event) {
   window.location.href = `/edit/${id}`;
 });
 
-$("#update").on('click', function (event) {
+$('#update').on('click', function (event) {
   event.preventDefault();
-    
+
   const newPhone = $('#phone').val().trim();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
@@ -68,7 +68,7 @@ $("#update").on('click', function (event) {
 
   $.ajax({
     method: 'PUT',
-    url: '/edit/' +messageId,
+    url: `/edit/${messageId}`,
     data: {
       phone_number: formattedPhone,
       outgoing_message: newMessage,
