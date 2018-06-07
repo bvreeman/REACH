@@ -28,7 +28,7 @@ const realToken = process.env.TWILIO_TOKEN;
 const trialNumber = process.env.TWILIO_TRIAL_PHONE_NUMBER;
 const realNumber = process.env.TWILIO_PHONE_NUMBER;
 
-const client = require('twilio')(trialSID, trialToken);
+const client = require('twilio')(realSID, realToken);
 
 // Routes
 // =============================================================
@@ -46,40 +46,6 @@ module.exports = function(app) {
   });
   let phoneNumber;
   let outgoingMessage;
-
-  // app.get('/api/remaining', function(req, res) {
-  //   contacts.findAll({
-  //     where:
-  //       {
-  //         sent: false,
-  //       },
-  //     order: [
-  //       ['scheduled_send', 'ASC'],
-  //     ],
-  //   }).then(function(dbContacts) {
-  //     phoneNumber = dbContacts[0].phone_number;
-  //     outgoingMessage = dbContacts[0].outgoing_message;
-
-  //     client.messages.create({
-  //       from: trialNumber,
-  //       to: phoneNumber,
-  //       body: outgoingMessage,
-  //     }, function(err, data) {
-  //       if (err) {
-  //         console.log(err);
-  //       } else console.log(data.body);
-  //     });
-  //   });
-  // });
-
-  //   function myFunction(){
-  //     console.log('myFunction Called')
-  // }
-
-  // myFunction();
-
-  // setInterval(function(){
-  //     myFunction()}, 30000)
 
   app.get('/testingTime', function(req, res) {
     currentTime = moment().format('YYYY-MM-DD hh:mm A');
@@ -116,7 +82,7 @@ module.exports = function(app) {
             outgoingMessage = dbContacts[i].outgoing_message;
 
             client.messages.create({
-              from: trialNumber,
+              from: realNumber,
               to: phoneNumber,
               body: outgoingMessage,
             }, function(err, data) {
@@ -154,77 +120,8 @@ module.exports = function(app) {
     twilioGo();
   });
 
-
-  // app.get('/api/remaining', function(req, res) {
-  //   function twilioGo() {
-  //     console.log('it is running');
-  //     contacts.findAll({
-  //       where:
-  //       {
-  //         sent: false,
-  //       },
-  //       order: [
-  //         ['scheduled_send', 'ASC'],
-  //       ],
-  //     }).then(function(dbContacts) {
-  //       phoneNumber = dbContacts[0].phone_number;
-  //       outgoingMessage = dbContacts[0].outgoing_message;
-  //       client.messages.create({
-  //         from: realNumber,
-  //         to: phoneNumber,
-  //         body: outgoingMessage,
-  //       }, function(err, data) {
-  //         if (err) {
-  //           console.log(err);
-  //         } else console.log(data.body);
-  //       });
-  //       return (dbContacts);
-  //     }).then(function(dbContacts) {
-  //       contacts.update(
-  //         {
-  //           sent: true,
-  //         },
-  //         {
-  //           where:
-  //         {
-  //           id: dbContacts[0].dataValues.id,
-  //         },
-  //           returning: true,
-  //         },
-  //       ).then(function(result) {
-  //         // return res.json(result);
-  //         // console.log(result);
-  //       });
-  //     });
-  //   }
-  //   twilioGo();
-
-  //   setInterval(function() {
-  //     twilioGo();
-  //   }, 60000);
-  // });
-
-
-  app.get('/testTwilio/:id', function(req, res) {
-    contacts.findOne({
-      where: {
-        id: req.params.id,
-      },
-    }).then(function(dbContacts) {
-      phoneNumber = dbContacts.dataValues.phone_number;
-      outgoingMessage = dbContacts.dataValues.outgoing_message;
-
-      client.messages.create({
-        from: trialNumber,
-        to: phoneNumber,
-        body: outgoingMessage,
-      }, function(err, data) {
-        if (err) {
-          console.log(err);
-        } else console.log(data.body);
-      });
-    });
-  });
+  // This function sends all of the messages in queue regardless of DATE/TIME
+  // or currently if it has been sent.
 
   app.get('/sendAll', function(req, res) {
     contacts.findAll({}).then(function(dbContacts) {
@@ -233,7 +130,7 @@ module.exports = function(app) {
         outgoingMessage = dbContacts[i].dataValues.outgoing_message;
 
         client.messages.create({
-          from: trialNumber,
+          from: realNumber,
           to: phoneNumber,
           body: outgoingMessage,
         }, function(err, data) {
@@ -245,17 +142,50 @@ module.exports = function(app) {
     });
   });
 
+  // This function sends the message for a specified ID
+
+  app.get('/testTwilio/:id', function(req, res) {
+    contacts.findOne({
+      where: {
+        id: req.params.id,
+      },
+    }).then(function(dbContacts) {
+      phoneNumber = dbContacts.dataValues.phone_number;
+      outgoingMessage = dbContacts.dataValues.outgoing_message;
+
+      client.messages.create({
+        from: realNumber,
+        to: phoneNumber,
+        body: outgoingMessage,
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+        } else console.log(data.body);
+      });
+    });
+  });
+
+  // function that accesses all of the items in the API
+
   app.get('/api/getNumber', function(req, res) {
     contacts.findAll({}).then(function(dbContacts) {
       return res.json(dbContacts);
     });
   });
 
-  app.get('/api/earliest', function(req, res) {
-    contacts.findAll({}).then(function(dbContacts) {
-      dbContacts.sort(function (a, b) {
-        return a.scheduled_send - b.scheduled_send;
-      });
+  // POST route for saving a new contact
+  app.post('/api/getNumber', function(req, res) {
+    contacts.create({
+      contact_name: req.body.contact_name,
+      phone_number: req.body.phone_number,
+      outgoing_message: req.body.outgoing_message,
+      email_address: req.body.email_address,
+      // scheduled_date: req.body.scheduled_date,
+      // scheduled_time: req.body.scheduled_time,
+      scheduled_send: req.body.scheduled_send,
+      sent: req.body.sent,
+    }).then(function(dbContacts) {
+      res.json(dbContacts);
     });
   });
 
@@ -274,22 +204,6 @@ module.exports = function(app) {
     ).then(function(result) {
       return res.json(result);
       // console.log(result);
-    });
-  });
-
-  // POST route for saving a new contact
-  app.post('/api/getNumber', function(req, res) {
-    contacts.create({
-      contact_name: req.body.contact_name,
-      phone_number: req.body.phone_number,
-      outgoing_message: req.body.outgoing_message,
-      email_address: req.body.email_address,
-      // scheduled_date: req.body.scheduled_date,
-      // scheduled_time: req.body.scheduled_time,
-      scheduled_send: req.body.scheduled_send,
-      sent: req.body.sent,
-    }).then(function(dbContacts) {
-      res.json(dbContacts);
     });
   });
 
@@ -351,3 +265,86 @@ module.exports = function(app) {
 //     });
 //   });
 // })
+
+// app.get('/api/remaining', function(req, res) {
+//   contacts.findAll({
+//     where:
+//       {
+//         sent: false,
+//       },
+//     order: [
+//       ['scheduled_send', 'ASC'],
+//     ],
+//   }).then(function(dbContacts) {
+//     phoneNumber = dbContacts[0].phone_number;
+//     outgoingMessage = dbContacts[0].outgoing_message;
+
+//     client.messages.create({
+//       from: trialNumber,
+//       to: phoneNumber,
+//       body: outgoingMessage,
+//     }, function(err, data) {
+//       if (err) {
+//         console.log(err);
+//       } else console.log(data.body);
+//     });
+//   });
+// });
+
+//   function myFunction(){
+//     console.log('myFunction Called')
+// }
+
+// myFunction();
+
+// setInterval(function(){
+//     myFunction()}, 30000)
+
+// app.get('/api/remaining', function(req, res) {
+//   function twilioGo() {
+//     console.log('it is running');
+//     contacts.findAll({
+//       where:
+//       {
+//         sent: false,
+//       },
+//       order: [
+//         ['scheduled_send', 'ASC'],
+//       ],
+//     }).then(function(dbContacts) {
+//       phoneNumber = dbContacts[0].phone_number;
+//       outgoingMessage = dbContacts[0].outgoing_message;
+//       client.messages.create({
+//         from: realNumber,
+//         to: phoneNumber,
+//         body: outgoingMessage,
+//       }, function(err, data) {
+//         if (err) {
+//           console.log(err);
+//         } else console.log(data.body);
+//       });
+//       return (dbContacts);
+//     }).then(function(dbContacts) {
+//       contacts.update(
+//         {
+//           sent: true,
+//         },
+//         {
+//           where:
+//         {
+//           id: dbContacts[0].dataValues.id,
+//         },
+//           returning: true,
+//         },
+//       ).then(function(result) {
+//         // return res.json(result);
+//         // console.log(result);
+//       });
+//     });
+//   }
+//   twilioGo();
+
+//   setInterval(function() {
+//     twilioGo();
+//   }, 60000);
+// });
