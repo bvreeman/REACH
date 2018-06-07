@@ -110,43 +110,39 @@ module.exports = function(app) {
           ['scheduled_send', 'ASC'],
         ],
       }).then(function(dbContacts) {
-        // for (let i = 0; i < dbContacts.length; i++) {
-        if (dbContacts[0].scheduled_send == currentTime) {
-          // console.log('\n<-------------------------------->\n');
-          // console.log(dbContacts[0].scheduled_send, currentTime, dbContacts[0].scheduled_send == currentTime);
-          // console.log('\n<-------------------------------->\n');
-          phoneNumber = dbContacts[0].phone_number;
-          outgoingMessage = dbContacts[0].outgoing_message;
-          // console.log('\n<-------------------------------->\n');
-          // console.log(`LOOK HERE!!!! ${phoneNumber} ${outgoingMessage}`);
-          // console.log('\n<-------------------------------->\n');
-          client.messages.create({
-            from: trialNumber,
-            to: phoneNumber,
-            body: outgoingMessage,
-          }, function(err, data) {
-            if (err) {
-              console.log(err);
-              return (dbContacts);
-            }
-            console.log(`CHECK OUT THIS DATA ${data.body}`);
-            contacts.update(
-              {
-                sent: true,
-              },
-              {
-                where:
+        for (let i = 0; i < dbContacts.length; i++) {
+          if (dbContacts[i].scheduled_send == currentTime) {
+            phoneNumber = dbContacts[i].phone_number;
+            outgoingMessage = dbContacts[i].outgoing_message;
+
+            client.messages.create({
+              from: trialNumber,
+              to: phoneNumber,
+              body: outgoingMessage,
+            }, function(err, data) {
+              if (err) {
+                console.log(err);
+                return (dbContacts);
+              }
+              console.log(`CHECK OUT THIS DATA ${data.body}`);
+              contacts.update(
+                {
+                  sent: true,
+                },
+                {
+                  where:
                     {
-                      id: dbContacts[0].dataValues.id,
+                      id: dbContacts[i].dataValues.id,
                     },
-                returning: true,
-              },
-            ).then(function(result) {
-              return (result);
+                  returning: true,
+                },
+              ).then(function(result) {
+                return (result);
               // console.log(result);
+              });
+              return (dbContacts);
             });
-            return (dbContacts);
-          });
+          }
         }
         clearTimeout(timerVariable);
         timerVariable = setTimeout(function() { twilioGo(); }, 60000);
