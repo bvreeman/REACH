@@ -36,6 +36,7 @@ Edit pending texts
 
 ## Authors
 * ```Brandon Vreeman```
+* ```Maggie Rassett```
 * ```Majid Jamaleldine```
 * ```Saundra Peterson```
 * ```Thom Romano``` 
