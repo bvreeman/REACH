@@ -47,10 +47,6 @@ module.exports = function(app) {
   let phoneNumber;
   let outgoingMessage;
 
-
-  const unsentArray = [];
-  const sentArray = [];
-
   // app.get('/api/remaining', function(req, res) {
   //   contacts.findAll({
   //     where:
@@ -98,6 +94,8 @@ module.exports = function(app) {
       }
     });
   });
+
+  let timerVariable;
 
   app.get('/api/remaining', function(req, res) {
     function twilioGo() {
@@ -150,11 +148,12 @@ module.exports = function(app) {
             return (dbContacts);
           });
         }
+        clearTimeout(timerVariable);
+        timerVariable = setTimeout(function() { twilioGo(); }, 60000);
         return (dbContacts);
       });
-      setInterval(function() {
-        twilioGo();
-      }, 60000);
+      clearTimeout(timerVariable);
+      timerVariable = setTimeout(function() { twilioGo(); }, 60000);
     }
     twilioGo();
   });

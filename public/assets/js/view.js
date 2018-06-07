@@ -27,7 +27,7 @@ function isFormValid() {
   if ($('#message').val().trim() === '') {
     $('#errorDiv').text('Please provide a message body.');
     return false;
-  } 
+  }
 
   // date inputs validation
   if ($('#selectedYear').val() === null || $('#selectedMonth').val() === null || $('#selectedDay').val() === null) {
@@ -105,7 +105,6 @@ $('#update').on('click', function (event) {
   if (!(isFormValid())) {
     return false;
   }
-    
   const newPhone = formatPhoneNumber();
   const formattedPhone = (`+1${newPhone}`);
   const newMessage = $('#message').val().trim();
