@@ -7,7 +7,7 @@
                         <h5 class="center-align">Update Pending Message</h5>
                         <form>
                             <div class="row">
-                                <div id="phoneError" style="color: red"></div>
+                                <div id="errorDiv" style="color: red"></div>
                                 <div class="input-field col s12">
                                     <input id="phone" type="tel" class="validate" value="{{phone_number}}">
                                     <label for="phone">US Phone Number (ex: 123456789)</label>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s12 m3">
-                                    <button class="right-align btn-large waves-effect waves-light pink darken-1" id="update" type="submit" name="action">Update</button>
+                                    <button class="right-align btn-large waves-effect waves-light pink darken-1 modal-trigger" id="update" type="submit" name="action" data-target="confirmModal">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -106,7 +106,16 @@
             <div hidden="hidden" value="{{hour}}" id="hbHour">{{hour}}</div>
             <div hidden="hidden" value="{{minute}}" id="hbMinute">{{minute}}</div>
             <div hidden="hidden" value="{{ampm}}" id="hbAMPM">{{ampm}}</div>
-
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <h4><i class="fas fa-check-circle"></i> Message Updated!</h4>
+                    <p>Would you like to write a new message or view your saved messages in your pending outbox?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/" class="modal-close waves-effect waves-green btn-flat">Compose New Message</a>
+                    <a href="/outbox" class="modal-close waves-effect waves-green btn-flat">Pending Outbox</a>
+                </div>
+            </div>
         </main>
     </div>
 </body>
@@ -119,5 +128,4 @@
 <script src="/assets/js/materializeWithEdits.js"></script>
 <script src="/assets/js/materializeElemsActivate.js"></script>
 <script src="/assets/js/dateTimePickersEditPage.js"></script>
-{{!-- <script src="/assets/js/formValidation.js"></script> --}}
 <script src="/assets/js/view.js" type= "text/javascript"></script>
