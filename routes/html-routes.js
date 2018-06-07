@@ -20,6 +20,10 @@ router.get('/', function(req, res) {
   res.render('home2');
 });
 
+router.get('/about', function(req, res) {
+  res.render('about');
+});
+
 router.get('/outbox', function(req, res) {
   contacts.findAll({}).then(function(dbContacts) {
     return res.render('outbox', { dbContacts: dbContacts });
