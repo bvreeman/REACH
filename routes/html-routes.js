@@ -51,7 +51,7 @@ router.get('/edit/:id', function(req, res) {
       day: date[2],
       hour: moment(dateAndTime[1], ['HH:mm']).format('hh'),
       minute: moment(dateAndTime[1], ['HH:mm']).format('mm'),
-      ampm: moment(dateAndTime[1], ['HH:mm']).format('A'),
+      ampm: dateAndTime[2],
     };
     return res.render('edit', formattedObject);
   });
