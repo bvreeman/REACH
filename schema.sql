@@ -15,7 +15,7 @@ CREATE TABLE contacts (
    PRIMARY KEY (id)
 );
 
-INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+15072591109', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 08:37 PM', false);
-INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+12182134462', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 08:39 PM', false);
-INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+19728902221', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 08:40 PM', false);
-INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+14257616386', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 08:42 PM', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+15072591109', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 09:25 PM', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+12182134462', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 09:25 PM', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+19728902221', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 09:27 PM', false);
+INSERT INTO contacts (contact_name, phone_number, email_address, outgoing_message, scheduled_send, sent) VALUES ('', '+14257616386', '', 'Hi. Eat at Mannies Manacottis', '2018-06-06 09:27 PM', false);
