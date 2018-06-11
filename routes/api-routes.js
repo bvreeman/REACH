@@ -28,7 +28,7 @@ const realToken = process.env.TWILIO_TOKEN;
 const trialNumber = process.env.TWILIO_TRIAL_PHONE_NUMBER;
 const realNumber = process.env.TWILIO_PHONE_NUMBER;
 
-const client = require('twilio')(realSID, realToken);
+const client = require('twilio')(trialSID, trialToken);
 
 // Routes
 // =============================================================
@@ -82,7 +82,7 @@ module.exports = function(app) {
             outgoingMessage = dbContacts[i].outgoing_message;
 
             client.messages.create({
-              from: realNumber,
+              from: trialNumber,
               to: phoneNumber,
               body: outgoingMessage,
             }, function(err, data) {
@@ -130,7 +130,7 @@ module.exports = function(app) {
         outgoingMessage = dbContacts[i].dataValues.outgoing_message;
 
         client.messages.create({
-          from: realNumber,
+          from: trialNumber,
           to: phoneNumber,
           body: outgoingMessage,
         }, function(err, data) {
@@ -154,7 +154,7 @@ module.exports = function(app) {
       outgoingMessage = dbContacts.dataValues.outgoing_message;
 
       client.messages.create({
-        from: realNumber,
+        from: trialNumber,
         to: phoneNumber,
         body: outgoingMessage,
       }, function(err, data) {
