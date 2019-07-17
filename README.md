@@ -1,7 +1,7 @@
 
 <img src = "./public/assets/img/Banner.png">
 
-## Hosted on Heroku <a href="https://arcane-bastion-12475.herokuapp.com/">Here
+## Hosted on Heroku **Note** This app needs to be reactivated in order to perform the actions correctly. If you wish to see it operate, please contact the owner of the Repo.<a href="https://arcane-bastion-12475.herokuapp.com/">Here
 
 <br>
 
