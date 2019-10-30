@@ -27,7 +27,7 @@
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1",
     "path": "^0.12.7",
-    "sequelize": "^5.10.1",
+    "sequelize": "^5.15.1",
     "twilio": "^3.33.1"
   },
   "devDependencies": {
